@@ -1,0 +1,515 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ARRAY_SIZE	last_course_linux/spi_test.c	28;"	d	file:
+BIT_PER_WORD	last_course_linux/lcd_spi_ctrl.c	10;"	d	file:
+BIT_PER_WORD	lcd_spi_ctrl.c	10;"	d	file:
+Btn_State_t	button_ctrl.c	/^} Btn_State_t;$/;"	t	typeref:enum:__anon1	file:
+Btn_State_t	lcd_ioctl.h	/^} Btn_State_t;$/;"	t	typeref:enum:__anon20
+CC	last_course_linux/user_main/Makefile	/^CC=gcc$/;"	m
+CC	user_main/Makefile	/^CC=gcc$/;"	m
+CFLAGS	last_course_linux/lib/Makefile	/^CFLAGS= -fPIC$/;"	m
+CFLAGS	last_course_linux/user_main/Makefile	/^CFLAGS=-I$(INCLUDE_DIR) -Wall$/;"	m
+CFLAGS	lib/Makefile	/^CFLAGS= -fPIC$/;"	m
+CFLAGS	user_main/Makefile	/^CFLAGS=-I$(INCLUDE_DIR) -Wall$/;"	m
+DOWN_BTN	button_ctrl.c	12;"	d	file:
+DOWN_STATE	button_ctrl.c	/^	DOWN_STATE,$/;"	e	enum:__anon1	file:
+DOWN_STATE	lcd_ioctl.h	/^	DOWN_STATE,$/;"	e	enum:__anon20
+Draw_Circle_t	last_course_linux/lcd_ioctl.h	/^} Draw_Circle_t;$/;"	t	typeref:struct:draw_circle
+Draw_Circle_t	lcd_ioctl.h	/^} Draw_Circle_t;$/;"	t	typeref:struct:draw_circle
+Draw_Pixel_t	last_course_linux/lcd_ioctl.h	/^} Draw_Pixel_t;$/;"	t	typeref:struct:draw_pixel
+Draw_Pixel_t	lcd_ioctl.h	/^} Draw_Pixel_t;$/;"	t	typeref:struct:draw_pixel
+Draw_Shape_t	last_course_linux/lcd_ioctl.h	/^} Draw_Shape_t;$/;"	t	typeref:struct:draw_shape
+Draw_Shape_t	lcd_ioctl.h	/^} Draw_Shape_t;$/;"	t	typeref:struct:draw_shape
+Draw_String_t	last_course_linux/lcd_ioctl.h	/^} Draw_String_t;$/;"	t	typeref:struct:draw_string
+Draw_String_t	lcd_ioctl.h	/^} Draw_String_t;$/;"	t	typeref:struct:draw_string
+FILENAME	last_course_linux/lcd_lib.h	11;"	d
+FILENAME	last_course_linux/lib/lcd_lib.h	11;"	d
+FILENAME	last_course_linux/test_signal.c	10;"	d	file:
+FILENAME	last_course_linux/user_main/test_btn.c	10;"	d	file:
+FILENAME	lib/lcd_lib.h	11;"	d
+FILENAME	user_main/test_btn.c	10;"	d	file:
+FontSize_3x5	last_course_linux/lcd_ioctl.h	/^	FontSize_3x5 = !FontSize_5x7$/;"	e	enum:__anon10
+FontSize_3x5	lcd_ioctl.h	/^	FontSize_3x5 = !FontSize_5x7$/;"	e	enum:__anon19
+FontSize_5x7	last_course_linux/lcd_ioctl.h	/^	FontSize_5x7 = 0,$/;"	e	enum:__anon10
+FontSize_5x7	lcd_ioctl.h	/^	FontSize_5x7 = 0,$/;"	e	enum:__anon19
+FontSize_t	last_course_linux/lcd_ioctl.h	/^} FontSize_t;$/;"	t	typeref:enum:__anon10
+FontSize_t	lcd_ioctl.h	/^} FontSize_t;$/;"	t	typeref:enum:__anon19
+HEADERS	last_course_linux/lib/Makefile	/^HEADERS = $(shell echo *.h)$/;"	m
+HEADERS	lib/Makefile	/^HEADERS = $(shell echo *.h)$/;"	m
+INCLUDE_DIR	last_course_linux/user_main/Makefile	/^INCLUDE_DIR=..\/lib$/;"	m
+INCLUDE_DIR	user_main/Makefile	/^INCLUDE_DIR=..\/lib$/;"	m
+IOCTL_CLEAR	last_course_linux/lcd_ioctl.h	5;"	d
+IOCTL_CLEAR	lcd_ioctl.h	5;"	d
+IOCTL_DRAW_CIRCLE	last_course_linux/lcd_ioctl.h	44;"	d
+IOCTL_DRAW_CIRCLE	lcd_ioctl.h	44;"	d
+IOCTL_DRAW_FILL_CIRCLE	last_course_linux/lcd_ioctl.h	45;"	d
+IOCTL_DRAW_FILL_CIRCLE	lcd_ioctl.h	45;"	d
+IOCTL_DRAW_FILL_RECT	last_course_linux/lcd_ioctl.h	36;"	d
+IOCTL_DRAW_FILL_RECT	lcd_ioctl.h	36;"	d
+IOCTL_DRAW_LINE	last_course_linux/lcd_ioctl.h	34;"	d
+IOCTL_DRAW_LINE	lcd_ioctl.h	34;"	d
+IOCTL_DRAW_PIXEL	last_course_linux/lcd_ioctl.h	25;"	d
+IOCTL_DRAW_PIXEL	lcd_ioctl.h	25;"	d
+IOCTL_DRAW_RECT	last_course_linux/lcd_ioctl.h	35;"	d
+IOCTL_DRAW_RECT	lcd_ioctl.h	35;"	d
+IOCTL_GOTOXY	last_course_linux/lcd_ioctl.h	13;"	d
+IOCTL_GOTOXY	lcd_ioctl.h	13;"	d
+IOCTL_HOME	last_course_linux/lcd_ioctl.h	6;"	d
+IOCTL_HOME	lcd_ioctl.h	6;"	d
+IOCTL_SEND_BUFF	last_course_linux/lcd_ioctl.h	47;"	d
+IOCTL_SEND_BUFF	lcd_ioctl.h	47;"	d
+IOCTL_SET_CONTRAST	last_course_linux/lcd_ioctl.h	7;"	d
+IOCTL_SET_CONTRAST	lcd_ioctl.h	7;"	d
+LCD_BIAS	last_course_linux/lcd_5110.h	38;"	d
+LCD_BIAS	lcd_5110.h	38;"	d
+LCD_BUFFER_SIZE	last_course_linux/lcd_5110.h	47;"	d
+LCD_BUFFER_SIZE	lcd_5110.h	47;"	d
+LCD_Buffer	last_course_linux/lcd_5110.c	/^unsigned char LCD_Buffer[LCD_BUFFER_SIZE];$/;"	v
+LCD_Buffer	lcd_5110.c	/^unsigned char LCD_Buffer[LCD_BUFFER_SIZE];$/;"	v
+LCD_CHAR3x5_HEIGHT	last_course_linux/lcd_5110.h	45;"	d
+LCD_CHAR3x5_HEIGHT	lcd_5110.h	45;"	d
+LCD_CHAR3x5_WIDTH	last_course_linux/lcd_5110.h	44;"	d
+LCD_CHAR3x5_WIDTH	lcd_5110.h	44;"	d
+LCD_CHAR5x7_HEIGHT	last_course_linux/lcd_5110.h	43;"	d
+LCD_CHAR5x7_HEIGHT	lcd_5110.h	43;"	d
+LCD_CHAR5x7_WIDTH	last_course_linux/lcd_5110.h	42;"	d
+LCD_CHAR5x7_WIDTH	lcd_5110.h	42;"	d
+LCD_CLK	last_course_linux/lcd_5110.h	13;"	d
+LCD_CLK	lcd_5110.h	13;"	d
+LCD_CLK_MAX	last_course_linux/lcd_spi_ctrl.c	9;"	d	file:
+LCD_CLK_MAX	lcd_spi_ctrl.c	9;"	d	file:
+LCD_COMMAND	last_course_linux/lcd_5110.h	/^	LCD_COMMAND = 0,$/;"	e	enum:__anon3
+LCD_COMMAND	lcd_5110.h	/^	LCD_COMMAND = 0,$/;"	e	enum:__anon12
+LCD_CONTRAST	last_course_linux/lcd_5110.h	40;"	d
+LCD_CONTRAST	lcd_5110.h	40;"	d
+LCD_Clear	last_course_linux/lcd_5110.c	/^void LCD_Clear(void)$/;"	f
+LCD_Clear	lcd_5110.c	/^void LCD_Clear(void)$/;"	f
+LCD_DATA	last_course_linux/lcd_5110.h	/^	LCD_DATA = !LCD_COMMAND$/;"	e	enum:__anon3
+LCD_DATA	lcd_5110.h	/^	LCD_DATA = !LCD_COMMAND$/;"	e	enum:__anon12
+LCD_DC_PIN	last_course_linux/lcd_5110.h	17;"	d
+LCD_DC_PIN	lcd_5110.h	17;"	d
+LCD_DIN	last_course_linux/lcd_5110.h	14;"	d
+LCD_DIN	lcd_5110.h	14;"	d
+LCD_DISPLAYALLON	last_course_linux/lcd_5110.h	27;"	d
+LCD_DISPLAYALLON	lcd_5110.h	27;"	d
+LCD_DISPLAYBLANK	last_course_linux/lcd_5110.h	25;"	d
+LCD_DISPLAYBLANK	lcd_5110.h	25;"	d
+LCD_DISPLAYCONTROL	last_course_linux/lcd_5110.h	31;"	d
+LCD_DISPLAYCONTROL	lcd_5110.h	31;"	d
+LCD_DISPLAYINVERTED	last_course_linux/lcd_5110.h	28;"	d
+LCD_DISPLAYINVERTED	lcd_5110.h	28;"	d
+LCD_DISPLAYNORMAL	last_course_linux/lcd_5110.h	26;"	d
+LCD_DISPLAYNORMAL	lcd_5110.h	26;"	d
+LCD_DrawCircle	last_course_linux/lcd_5110.c	/^void LCD_DrawCircle(char x0, char y0, char r, LCD_Pixel_t color)$/;"	f
+LCD_DrawCircle	lcd_5110.c	/^void LCD_DrawCircle(char x0, char y0, char r, LCD_Pixel_t color)$/;"	f
+LCD_DrawFilledCircle	last_course_linux/lcd_5110.c	/^void LCD_DrawFilledCircle(char x0, char y0, char r, LCD_Pixel_t color)$/;"	f
+LCD_DrawFilledCircle	lcd_5110.c	/^void LCD_DrawFilledCircle(char x0, char y0, char r, LCD_Pixel_t color)$/;"	f
+LCD_DrawFilledRectangle	last_course_linux/lcd_5110.c	/^void LCD_DrawFilledRectangle(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_DrawFilledRectangle	lcd_5110.c	/^void LCD_DrawFilledRectangle(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_DrawLine	last_course_linux/lcd_5110.c	/^void LCD_DrawLine(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_DrawLine	lcd_5110.c	/^void LCD_DrawLine(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_DrawPixel	last_course_linux/lcd_5110.c	/^void LCD_DrawPixel(unsigned char x, unsigned char y, LCD_Pixel_t pixel)$/;"	f
+LCD_DrawPixel	lcd_5110.c	/^void LCD_DrawPixel(unsigned char x, unsigned char y, LCD_Pixel_t pixel)$/;"	f
+LCD_DrawRectangle	last_course_linux/lcd_5110.c	/^void LCD_DrawRectangle(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_DrawRectangle	lcd_5110.c	/^void LCD_DrawRectangle(unsigned char x0, unsigned char y0, unsigned char x1,$/;"	f
+LCD_ENTRYMODE	last_course_linux/lcd_5110.h	23;"	d
+LCD_ENTRYMODE	lcd_5110.h	23;"	d
+LCD_EXTENDEDINSTRUCTION	last_course_linux/lcd_5110.h	24;"	d
+LCD_EXTENDEDINSTRUCTION	lcd_5110.h	24;"	d
+LCD_FUNCTIONSET	last_course_linux/lcd_5110.h	30;"	d
+LCD_FUNCTIONSET	lcd_5110.h	30;"	d
+LCD_Font3x5	last_course_linux/lcd_5110.c	/^const uint8_t LCD_Font3x5[106][3] = {$/;"	v
+LCD_Font3x5	lcd_5110.c	/^const uint8_t LCD_Font3x5[106][3] = {$/;"	v
+LCD_Font5x7	last_course_linux/lcd_5110.c	/^const uint8_t LCD_Font5x7 [97][LCD_CHAR5x7_WIDTH] = {$/;"	v
+LCD_Font5x7	lcd_5110.c	/^const uint8_t LCD_Font5x7 [97][LCD_CHAR5x7_WIDTH] = {$/;"	v
+LCD_FontSize_3x5	last_course_linux/lcd_5110.h	/^	LCD_FontSize_3x5 = !LCD_FontSize_5x7$/;"	e	enum:__anon7
+LCD_FontSize_3x5	lcd_5110.h	/^	LCD_FontSize_3x5 = !LCD_FontSize_5x7$/;"	e	enum:__anon16
+LCD_FontSize_5x7	last_course_linux/lcd_5110.h	/^	LCD_FontSize_5x7 = 0,$/;"	e	enum:__anon7
+LCD_FontSize_5x7	lcd_5110.h	/^	LCD_FontSize_5x7 = 0,$/;"	e	enum:__anon16
+LCD_FontSize_t	last_course_linux/lcd_5110.h	/^} LCD_FontSize_t;$/;"	t	typeref:enum:__anon7
+LCD_FontSize_t	lcd_5110.h	/^} LCD_FontSize_t;$/;"	t	typeref:enum:__anon16
+LCD_GotoXY	last_course_linux/lcd_5110.c	/^void LCD_GotoXY(unsigned char x, unsigned char y)$/;"	f
+LCD_GotoXY	lcd_5110.c	/^void LCD_GotoXY(unsigned char x, unsigned char y)$/;"	f
+LCD_HEIGHT	last_course_linux/lcd_5110.h	20;"	d
+LCD_HEIGHT	lcd_5110.h	20;"	d
+LCD_Home	last_course_linux/lcd_5110.c	/^void LCD_Home(void)$/;"	f
+LCD_Home	lcd_5110.c	/^void LCD_Home(void)$/;"	f
+LCD_Init	last_course_linux/lcd_5110.c	/^void LCD_Init(unsigned char contrast)$/;"	f
+LCD_Init	lcd_5110.c	/^void LCD_Init(unsigned char contrast)$/;"	f
+LCD_Invert	last_course_linux/lcd_5110.c	/^void LCD_Invert(LCD_Invert_t invert)$/;"	f
+LCD_Invert	lcd_5110.c	/^void LCD_Invert(LCD_Invert_t invert)$/;"	f
+LCD_Invert_No	last_course_linux/lcd_5110.h	/^	LCD_Invert_No$/;"	e	enum:__anon8
+LCD_Invert_No	lcd_5110.h	/^	LCD_Invert_No$/;"	e	enum:__anon17
+LCD_Invert_Yes	last_course_linux/lcd_5110.h	/^	LCD_Invert_Yes,$/;"	e	enum:__anon8
+LCD_Invert_Yes	lcd_5110.h	/^	LCD_Invert_Yes,$/;"	e	enum:__anon17
+LCD_Invert_t	last_course_linux/lcd_5110.h	/^} LCD_Invert_t;$/;"	t	typeref:enum:__anon8
+LCD_Invert_t	lcd_5110.h	/^} LCD_Invert_t;$/;"	t	typeref:enum:__anon17
+LCD_POWERDOWN	last_course_linux/lcd_5110.h	22;"	d
+LCD_POWERDOWN	lcd_5110.h	22;"	d
+LCD_Pin	last_course_linux/lcd_5110.c	/^void LCD_Pin(LCD_Pin_t pin, LCD_State_t state)$/;"	f
+LCD_Pin	lcd_5110.c	/^void LCD_Pin(LCD_Pin_t pin, LCD_State_t state)$/;"	f
+LCD_Pin_DC	last_course_linux/lcd_5110.h	/^	LCD_Pin_DC = 1,$/;"	e	enum:__anon5
+LCD_Pin_DC	lcd_5110.h	/^	LCD_Pin_DC = 1,$/;"	e	enum:__anon14
+LCD_Pin_RST	last_course_linux/lcd_5110.h	/^	LCD_Pin_RST = 2$/;"	e	enum:__anon5
+LCD_Pin_RST	lcd_5110.h	/^	LCD_Pin_RST = 2$/;"	e	enum:__anon14
+LCD_Pin_t	last_course_linux/lcd_5110.h	/^} LCD_Pin_t;$/;"	t	typeref:enum:__anon5
+LCD_Pin_t	lcd_5110.h	/^} LCD_Pin_t;$/;"	t	typeref:enum:__anon14
+LCD_Pixel_Clear	last_course_linux/lcd_5110.h	/^	LCD_Pixel_Clear = 0,$/;"	e	enum:__anon6
+LCD_Pixel_Clear	lcd_5110.h	/^	LCD_Pixel_Clear = 0,$/;"	e	enum:__anon15
+LCD_Pixel_Set	last_course_linux/lcd_5110.h	/^	LCD_Pixel_Set = !LCD_Pixel_Clear$/;"	e	enum:__anon6
+LCD_Pixel_Set	lcd_5110.h	/^	LCD_Pixel_Set = !LCD_Pixel_Clear$/;"	e	enum:__anon15
+LCD_Pixel_t	last_course_linux/lcd_5110.h	/^} LCD_Pixel_t;$/;"	t	typeref:enum:__anon6
+LCD_Pixel_t	lcd_5110.h	/^} LCD_Pixel_t;$/;"	t	typeref:enum:__anon15
+LCD_Putc	last_course_linux/lcd_5110.c	/^void LCD_Putc(char c, LCD_Pixel_t color, LCD_FontSize_t size)$/;"	f
+LCD_Putc	lcd_5110.c	/^void LCD_Putc(char c, LCD_Pixel_t color, LCD_FontSize_t size)$/;"	f
+LCD_Puts	last_course_linux/lcd_5110.c	/^void LCD_Puts(char *s, LCD_Pixel_t color, LCD_FontSize_t size)$/;"	f
+LCD_Puts	lcd_5110.c	/^void LCD_Puts(char *s, LCD_Pixel_t color, LCD_FontSize_t size)$/;"	f
+LCD_RST_PIN	last_course_linux/lcd_5110.h	16;"	d
+LCD_RST_PIN	lcd_5110.h	16;"	d
+LCD_Refresh	last_course_linux/lcd_5110.c	/^void LCD_Refresh(void)$/;"	f
+LCD_Refresh	lcd_5110.c	/^void LCD_Refresh(void)$/;"	f
+LCD_SETBIAS	last_course_linux/lcd_5110.h	35;"	d
+LCD_SETBIAS	lcd_5110.h	35;"	d
+LCD_SETTEMP	last_course_linux/lcd_5110.h	34;"	d
+LCD_SETTEMP	lcd_5110.h	34;"	d
+LCD_SETVOP	last_course_linux/lcd_5110.h	36;"	d
+LCD_SETVOP	lcd_5110.h	36;"	d
+LCD_SETXADDR	last_course_linux/lcd_5110.h	33;"	d
+LCD_SETXADDR	lcd_5110.h	33;"	d
+LCD_SETYADDR	last_course_linux/lcd_5110.h	32;"	d
+LCD_SETYADDR	lcd_5110.h	32;"	d
+LCD_SetContrast	last_course_linux/lcd_5110.c	/^void LCD_SetContrast(unsigned char contrast)$/;"	f
+LCD_SetContrast	lcd_5110.c	/^void LCD_SetContrast(unsigned char contrast)$/;"	f
+LCD_State_High	last_course_linux/lcd_5110.h	/^	LCD_State_High = !LCD_State_Low$/;"	e	enum:__anon4
+LCD_State_High	lcd_5110.h	/^	LCD_State_High = !LCD_State_Low$/;"	e	enum:__anon13
+LCD_State_Low	last_course_linux/lcd_5110.h	/^	LCD_State_Low = 0,$/;"	e	enum:__anon4
+LCD_State_Low	lcd_5110.h	/^	LCD_State_Low = 0,$/;"	e	enum:__anon13
+LCD_State_t	last_course_linux/lcd_5110.h	/^} LCD_State_t;$/;"	t	typeref:enum:__anon4
+LCD_State_t	lcd_5110.h	/^} LCD_State_t;$/;"	t	typeref:enum:__anon13
+LCD_TEMP	last_course_linux/lcd_5110.h	39;"	d
+LCD_TEMP	lcd_5110.h	39;"	d
+LCD_UpdateArea	last_course_linux/lcd_5110.c	/^void LCD_UpdateArea(unsigned char xMin, unsigned char yMin, unsigned char xMax,$/;"	f
+LCD_UpdateArea	lcd_5110.c	/^void LCD_UpdateArea(unsigned char xMin, unsigned char yMin, unsigned char xMax,$/;"	f
+LCD_UpdateXmax	last_course_linux/lcd_5110.c	/^unsigned char LCD_UpdateXmax = 0;$/;"	v
+LCD_UpdateXmax	lcd_5110.c	/^unsigned char LCD_UpdateXmax = 0;$/;"	v
+LCD_UpdateXmin	last_course_linux/lcd_5110.c	/^unsigned char LCD_UpdateXmin = 0;$/;"	v
+LCD_UpdateXmin	lcd_5110.c	/^unsigned char LCD_UpdateXmin = 0;$/;"	v
+LCD_UpdateYmax	last_course_linux/lcd_5110.c	/^unsigned char LCD_UpdateYmax = 0;$/;"	v
+LCD_UpdateYmax	lcd_5110.c	/^unsigned char LCD_UpdateYmax = 0;$/;"	v
+LCD_UpdateYmin	last_course_linux/lcd_5110.c	/^unsigned char LCD_UpdateYmin = 0;$/;"	v
+LCD_UpdateYmin	lcd_5110.c	/^unsigned char LCD_UpdateYmin = 0;$/;"	v
+LCD_WIDTH	last_course_linux/lcd_5110.h	19;"	d
+LCD_WIDTH	lcd_5110.h	19;"	d
+LCD_Write	last_course_linux/lcd_5110.c	/^void LCD_Write(LCD_WriteType_t type, unsigned char data)$/;"	f
+LCD_Write	lcd_5110.c	/^void LCD_Write(LCD_WriteType_t type, unsigned char data)$/;"	f
+LCD_WriteType_t	last_course_linux/lcd_5110.h	/^} LCD_WriteType_t;$/;"	t	typeref:enum:__anon3
+LCD_WriteType_t	lcd_5110.h	/^} LCD_WriteType_t;$/;"	t	typeref:enum:__anon12
+LCD_free_IO	last_course_linux/lcd_5110.c	/^void LCD_free_IO(void)$/;"	f
+LCD_free_IO	lcd_5110.c	/^void LCD_free_IO(void)$/;"	f
+LCD_init_IO	last_course_linux/lcd_5110.c	/^int LCD_init_IO(void)$/;"	f
+LCD_init_IO	lcd_5110.c	/^int LCD_init_IO(void)$/;"	f
+LCD_send	last_course_linux/lcd_5110.c	/^void LCD_send(unsigned char data)$/;"	f
+LCD_send	lcd_5110.c	/^void LCD_send(unsigned char data)$/;"	f
+LCD_x	last_course_linux/lcd_5110.c	/^unsigned char LCD_x;$/;"	v
+LCD_x	lcd_5110.c	/^unsigned char LCD_x;$/;"	v
+LCD_y	last_course_linux/lcd_5110.c	/^unsigned char LCD_y;$/;"	v
+LCD_y	lcd_5110.c	/^unsigned char LCD_y;$/;"	v
+LDFLAGS	last_course_linux/lib/Makefile	/^LDFLAGS= -shared$/;"	m
+LDFLAGS	last_course_linux/user_main/Makefile	/^LDFLAGS=-L$(INCLUDE_DIR) -llcd_lib$/;"	m
+LDFLAGS	lib/Makefile	/^LDFLAGS= -shared$/;"	m
+LDFLAGS	user_main/Makefile	/^LDFLAGS=-L$(INCLUDE_DIR) -llcd_lib$/;"	m
+LEFT_BTN	button_ctrl.c	9;"	d	file:
+LEFT_STATE	button_ctrl.c	/^	LEFT_STATE,$/;"	e	enum:__anon1	file:
+LEFT_STATE	lcd_ioctl.h	/^	LEFT_STATE,$/;"	e	enum:__anon20
+MAJIC_NO	last_course_linux/lcd_ioctl.h	4;"	d
+MAJIC_NO	lcd_ioctl.h	4;"	d
+MAX_HEIGHT	last_course_linux/snake.c	12;"	d	file:
+MAX_LENGTH	last_course_linux/snake.c	10;"	d	file:
+MAX_WIDTH	last_course_linux/snake.c	11;"	d	file:
+MY_SIGNAL	last_course_linux/button_ctl.c	20;"	d	file:
+MY_SIGNAL	last_course_linux/test_signal.c	9;"	d	file:
+OBJECTS	last_course_linux/lib/Makefile	/^OBJECTS=$(SOURCES:.c=.o)$/;"	m
+OBJECTS	lib/Makefile	/^OBJECTS=$(SOURCES:.c=.o)$/;"	m
+PIN_HIGH	last_course_linux/lcd_5110.h	/^	PIN_HIGH = !PIN_LOW$/;"	e	enum:__anon2
+PIN_HIGH	lcd_5110.h	/^	PIN_HIGH = !PIN_LOW$/;"	e	enum:__anon11
+PIN_LOW	last_course_linux/lcd_5110.h	/^	PIN_LOW = 0,$/;"	e	enum:__anon2
+PIN_LOW	lcd_5110.h	/^	PIN_LOW = 0,$/;"	e	enum:__anon11
+Pin_State_t	last_course_linux/lcd_5110.h	/^} Pin_State_t;$/;"	t	typeref:enum:__anon2
+Pin_State_t	lcd_5110.h	/^} Pin_State_t;$/;"	t	typeref:enum:__anon11
+Pixel_Clear	last_course_linux/lcd_ioctl.h	/^	Pixel_Clear = 0,$/;"	e	enum:__anon9
+Pixel_Clear	lcd_ioctl.h	/^	Pixel_Clear = 0,$/;"	e	enum:__anon18
+Pixel_Set	last_course_linux/lcd_ioctl.h	/^	Pixel_Set = !Pixel_Clear$/;"	e	enum:__anon9
+Pixel_Set	lcd_ioctl.h	/^	Pixel_Set = !Pixel_Clear$/;"	e	enum:__anon18
+Pixel_t	last_course_linux/lcd_ioctl.h	/^} Pixel_t;$/;"	t	typeref:enum:__anon9
+Pixel_t	lcd_ioctl.h	/^} Pixel_t;$/;"	t	typeref:enum:__anon18
+Position_t	last_course_linux/lcd_ioctl.h	/^} Position_t;$/;"	t	typeref:struct:position
+Position_t	lcd_ioctl.h	/^} Position_t;$/;"	t	typeref:struct:position
+RIGHT_BTN	button_ctrl.c	10;"	d	file:
+RIGHT_STATE	button_ctrl.c	/^	RIGHT_STATE$/;"	e	enum:__anon1	file:
+RIGHT_STATE	lcd_ioctl.h	/^	RIGHT_STATE$/;"	e	enum:__anon20
+SOURCES	last_course_linux/lib/Makefile	/^SOURCES = $(shell echo *.c)$/;"	m
+SOURCES	lib/Makefile	/^SOURCES = $(shell echo *.c)$/;"	m
+TARGET	last_course_linux/lib/Makefile	/^TARGET=.\/liblcd_lib.so$/;"	m
+TARGET	last_course_linux/user_main/Makefile	/^TARGET=test$/;"	m
+TARGET	lib/Makefile	/^TARGET=.\/liblcd_lib.so$/;"	m
+TARGET	user_main/Makefile	/^TARGET=test$/;"	m
+THICK	last_course_linux/snake.c	13;"	d	file:
+UP_BTN	button_ctrl.c	11;"	d	file:
+UP_STATE	button_ctrl.c	/^	UP_STATE = 1,$/;"	e	enum:__anon1	file:
+UP_STATE	lcd_ioctl.h	/^	UP_STATE = 1,$/;"	e	enum:__anon20
+__LCD_5110	last_course_linux/lcd_5110.h	7;"	d
+__LCD_5110	lcd_5110.h	7;"	d
+__LCD_IOCTL	last_course_linux/lcd_ioctl.h	2;"	d
+__LCD_IOCTL	lcd_ioctl.h	2;"	d
+__LCD_LIB	last_course_linux/lcd_lib.h	2;"	d
+__LCD_LIB	last_course_linux/lib/lcd_lib.h	2;"	d
+__LCD_LIB	lib/lcd_lib.h	2;"	d
+_read_count	last_course_linux/spi_test.c	/^static uint64_t _read_count;$/;"	v	file:
+_write_count	last_course_linux/spi_test.c	/^static uint64_t _write_count;$/;"	v	file:
+arr_x	last_course_linux/snake.c	/^	int arr_x[THICK][MAX_LENGTH];$/;"	m	struct:snake	file:
+arr_y	last_course_linux/snake.c	/^	int arr_y[THICK][MAX_LENGTH];$/;"	m	struct:snake	file:
+bits	last_course_linux/spi_test.c	/^static uint8_t bits = 8;$/;"	v	file:
+btn_dev	button_ctrl.c	/^static struct miscdevice btn_dev = {$/;"	v	typeref:struct:miscdevice	file:
+btn_dev	last_course_linux/button_ctl.c	/^static struct miscdevice btn_dev = {$/;"	v	typeref:struct:miscdevice	file:
+btn_state	last_course_linux/user_main/test_btn.c	/^Btn_State_t btn_state;$/;"	v
+btn_state	user_main/test_btn.c	/^Btn_State_t btn_state;$/;"	v
+button_exit	button_ctrl.c	/^module_exit(button_exit);$/;"	v
+button_exit	button_ctrl.c	/^static void __exit button_exit(void)$/;"	f	file:
+button_exit	last_course_linux/button_ctl.c	/^module_exit(button_exit);$/;"	v
+button_exit	last_course_linux/button_ctl.c	/^static void __exit button_exit(void)$/;"	f	file:
+button_init	button_ctrl.c	/^module_init(button_init);$/;"	v
+button_init	button_ctrl.c	/^static int __init button_init(void)$/;"	f	file:
+button_init	last_course_linux/button_ctl.c	/^module_init(button_init);$/;"	v
+button_init	last_course_linux/button_ctl.c	/^static int __init button_init(void)$/;"	f	file:
+button_irq_handle	button_ctrl.c	/^static irqreturn_t button_irq_handle(int irq, void *data)$/;"	f	file:
+button_irq_handler	last_course_linux/button_ctl.c	/^static irq_handler_t button_irq_handler(unsigned int irq, void *dev_id,$/;"	f	file:
+button_state	button_ctrl.c	/^static Btn_State_t button_state;$/;"	v	file:
+button_state	last_course_linux/test_signal.c	/^int button_state;$/;"	v
+button_status	last_course_linux/button_ctl.c	/^static int button_status = 0;$/;"	v	file:
+count	last_course_linux/lcd_spi_ctrl.c	/^static int count;$/;"	v	file:
+count	lcd_spi_ctrl.c	/^static int count;$/;"	v	file:
+current_length	last_course_linux/snake.c	/^	int current_length;$/;"	m	struct:snake	file:
+default_rx	last_course_linux/spi_test.c	/^uint8_t default_rx[ARRAY_SIZE(default_tx)] = {0, };$/;"	v
+default_tx	last_course_linux/spi_test.c	/^uint8_t default_tx[] = {$/;"	v
+delay	last_course_linux/spi_test.c	/^static uint16_t delay;$/;"	v	file:
+dev_close	button_ctrl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_close	last_course_linux/button_ctl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_close	last_course_linux/lcd_ctrl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_close	last_course_linux/lcd_spi_ctrl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_close	lcd_ctrl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_close	lcd_spi_ctrl.c	/^static int dev_close(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_ioctl	last_course_linux/lcd_ctrl.c	/^static long dev_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)$/;"	f	file:
+dev_ioctl	last_course_linux/lcd_spi_ctrl.c	/^static long dev_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)$/;"	f	file:
+dev_ioctl	lcd_ctrl.c	/^static long dev_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)$/;"	f	file:
+dev_ioctl	lcd_spi_ctrl.c	/^static long dev_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)$/;"	f	file:
+dev_open	button_ctrl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_open	last_course_linux/button_ctl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_open	last_course_linux/lcd_ctrl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_open	last_course_linux/lcd_spi_ctrl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_open	lcd_ctrl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_open	lcd_spi_ctrl.c	/^static int dev_open(struct inode *inodep, struct file *filep)$/;"	f	file:
+dev_read	button_ctrl.c	/^static ssize_t dev_read(struct file *filep, char __user *buf, size_t len,$/;"	f	file:
+dev_write	last_course_linux/lcd_ctrl.c	/^static ssize_t dev_write(struct file *filep, const char __user *buf, size_t len,$/;"	f	file:
+dev_write	last_course_linux/lcd_spi_ctrl.c	/^static ssize_t dev_write(struct file *filep, const char __user *buf, size_t len,$/;"	f	file:
+dev_write	lcd_ctrl.c	/^static ssize_t dev_write(struct file *filep, const char __user *buf, size_t len,$/;"	f	file:
+dev_write	lcd_spi_ctrl.c	/^static ssize_t dev_write(struct file *filep, const char __user *buf, size_t len,$/;"	f	file:
+device	last_course_linux/spi_test.c	/^static const char *device = "\/dev\/spidev1.1";$/;"	v	file:
+direction	last_course_linux/multithread_test/main.c	/^static int direction = 0;$/;"	v	file:
+direction	last_course_linux/snake.c	/^static int direction = 0;$/;"	v	file:
+direction_t	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	g	file:
+down	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	e	enum:direction_t	file:
+down_btn_irq	button_ctrl.c	/^static int down_btn_irq;$/;"	v	file:
+draw_circle	last_course_linux/lcd_ioctl.h	/^typedef struct draw_circle {$/;"	s
+draw_circle	lcd_ioctl.h	/^typedef struct draw_circle {$/;"	s
+draw_pixel	last_course_linux/lcd_ioctl.h	/^typedef struct draw_pixel {$/;"	s
+draw_pixel	lcd_ioctl.h	/^typedef struct draw_pixel {$/;"	s
+draw_shape	last_course_linux/lcd_ioctl.h	/^typedef struct draw_shape {$/;"	s
+draw_shape	lcd_ioctl.h	/^typedef struct draw_shape {$/;"	s
+draw_snake	last_course_linux/snake.c	/^void draw_snake(struct snake s ){$/;"	f
+draw_snake_move	last_course_linux/snake.c	/^void draw_snake_move(struct snake *s,int lx[],int ly[], int dir ){$/;"	f
+draw_string	last_course_linux/lcd_ioctl.h	/^typedef struct draw_string {$/;"	s
+draw_string	last_course_linux/lcd_lib.c	/^extern void draw_string(char *name, Pixel_t color, FontSize_t font)$/;"	f
+draw_string	last_course_linux/lib/lcd_lib.c	/^extern void draw_string(char *name, Pixel_t color, FontSize_t font)$/;"	f
+draw_string	lcd_ioctl.h	/^typedef struct draw_string {$/;"	s
+draw_string	lib/lcd_lib.c	/^extern void draw_string(char *name, Pixel_t color, FontSize_t font)$/;"	f
+f	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	e	enum:direction_t	file:
+font	last_course_linux/lcd_ioctl.h	/^	FontSize_t font;$/;"	m	struct:draw_string
+font	lcd_ioctl.h	/^	FontSize_t font;$/;"	m	struct:draw_string
+fops	button_ctrl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+fops	last_course_linux/button_ctl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+fops	last_course_linux/lcd_ctrl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+fops	last_course_linux/lcd_spi_ctrl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+fops	lcd_ctrl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+fops	lcd_spi_ctrl.c	/^static struct file_operations fops = {$/;"	v	typeref:struct:file_operations	file:
+gpioButton	last_course_linux/button_ctl.c	/^static unsigned int gpioButton[4] = {44, 26, 46, 65};$/;"	v	file:
+gpio_set_pin	last_course_linux/lcd_5110.c	/^void gpio_set_pin(int gpio, Pin_State_t state)$/;"	f
+gpio_set_pin	lcd_5110.c	/^void gpio_set_pin(int gpio, Pin_State_t state)$/;"	f
+head	last_course_linux/snake.c	/^	int head ;$/;"	m	struct:snake	file:
+head_x	last_course_linux/snake.c	/^	int head_x[4];$/;"	m	struct:snake	file:
+head_y	last_course_linux/snake.c	/^	int head_y[4];$/;"	m	struct:snake	file:
+hex_dump	last_course_linux/spi_test.c	/^static void hex_dump(const void *src, size_t length, size_t line_size,$/;"	f	file:
+init	last_course_linux/snake.c	/^void init(struct snake *s) {$/;"	f
+input_file	last_course_linux/spi_test.c	/^static char *input_file;$/;"	v	file:
+input_tx	last_course_linux/spi_test.c	/^char *input_tx;$/;"	v
+interval	last_course_linux/spi_test.c	/^static int interval = 5; \/* interval in seconds for showing transfer rate *\/$/;"	v	file:
+irqNumber	last_course_linux/button_ctl.c	/^static unsigned int irqNumber[4];$/;"	v	file:
+iterations	last_course_linux/spi_test.c	/^static int iterations;$/;"	v	file:
+lcd_clear_screen	last_course_linux/lcd_lib.c	/^extern void lcd_clear_screen()$/;"	f
+lcd_clear_screen	last_course_linux/lib/lcd_lib.c	/^extern void lcd_clear_screen()$/;"	f
+lcd_clear_screen	lib/lcd_lib.c	/^extern void lcd_clear_screen()$/;"	f
+lcd_dev	last_course_linux/lcd_spi_ctrl.c	/^static struct spi_device *lcd_dev;$/;"	v	typeref:struct:spi_device	file:
+lcd_dev	lcd_spi_ctrl.c	/^static struct spi_device *lcd_dev;$/;"	v	typeref:struct:spi_device	file:
+lcd_draw_circle	last_course_linux/lcd_lib.c	/^extern void lcd_draw_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_circle	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_circle	lib/lcd_lib.c	/^extern void lcd_draw_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_fill_circle	last_course_linux/lcd_lib.c	/^extern void lcd_draw_fill_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_fill_circle	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_fill_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_fill_circle	lib/lcd_lib.c	/^extern void lcd_draw_fill_circle(char x, char y, char r, Pixel_t pixel)$/;"	f
+lcd_draw_fill_rect	last_course_linux/lcd_lib.c	/^extern void lcd_draw_fill_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_fill_rect	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_fill_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_fill_rect	lib/lcd_lib.c	/^extern void lcd_draw_fill_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_line	last_course_linux/lcd_lib.c	/^extern void lcd_draw_line(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_line	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_line(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_line	lib/lcd_lib.c	/^extern void lcd_draw_line(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_pixel	last_course_linux/lcd_lib.c	/^extern void lcd_draw_pixel(unsigned char x, unsigned char y, Pixel_t pixel)$/;"	f
+lcd_draw_pixel	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_pixel(unsigned char x, unsigned char y, Pixel_t pixel)$/;"	f
+lcd_draw_pixel	lib/lcd_lib.c	/^extern void lcd_draw_pixel(unsigned char x, unsigned char y, Pixel_t pixel)$/;"	f
+lcd_draw_rect	last_course_linux/lcd_lib.c	/^extern void lcd_draw_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_rect	last_course_linux/lib/lcd_lib.c	/^extern void lcd_draw_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_draw_rect	lib/lcd_lib.c	/^extern void lcd_draw_rect(unsigned char x0, unsigned char y0,$/;"	f
+lcd_driver	last_course_linux/lcd_spi_ctrl.c	/^static struct spi_driver lcd_driver = {$/;"	v	typeref:struct:spi_driver	file:
+lcd_driver	lcd_spi_ctrl.c	/^static struct spi_driver lcd_driver = {$/;"	v	typeref:struct:spi_driver	file:
+lcd_driver-objs	Makefile	/^lcd_driver-objs := lcd_ctrl.o lcd_5110.o$/;"	m
+lcd_driver-objs	last_course_linux/Makefile	/^lcd_driver-objs := lcd_ctrl.o lcd_5110.o$/;"	m
+lcd_exit	last_course_linux/lcd_ctrl.c	/^module_exit(lcd_exit);$/;"	v
+lcd_exit	last_course_linux/lcd_ctrl.c	/^static void __exit lcd_exit(void)$/;"	f	file:
+lcd_exit	last_course_linux/lcd_spi_ctrl.c	/^module_exit(lcd_exit);$/;"	v
+lcd_exit	last_course_linux/lcd_spi_ctrl.c	/^static void __exit lcd_exit(void)$/;"	f	file:
+lcd_exit	lcd_ctrl.c	/^module_exit(lcd_exit);$/;"	v
+lcd_exit	lcd_ctrl.c	/^static void __exit lcd_exit(void)$/;"	f	file:
+lcd_exit	lcd_spi_ctrl.c	/^module_exit(lcd_exit);$/;"	v
+lcd_exit	lcd_spi_ctrl.c	/^static void __exit lcd_exit(void)$/;"	f	file:
+lcd_gotoxy	last_course_linux/lcd_lib.c	/^extern void lcd_gotoxy(unsigned char x, unsigned char y)$/;"	f
+lcd_gotoxy	last_course_linux/lib/lcd_lib.c	/^extern void lcd_gotoxy(unsigned char x, unsigned char y)$/;"	f
+lcd_gotoxy	lib/lcd_lib.c	/^extern void lcd_gotoxy(unsigned char x, unsigned char y)$/;"	f
+lcd_home	last_course_linux/lcd_lib.c	/^extern void lcd_home()$/;"	f
+lcd_home	last_course_linux/lib/lcd_lib.c	/^extern void lcd_home()$/;"	f
+lcd_home	lib/lcd_lib.c	/^extern void lcd_home()$/;"	f
+lcd_idtable	last_course_linux/lcd_spi_ctrl.c	/^static struct spi_device_id lcd_idtable[] = {$/;"	v	typeref:struct:spi_device_id	file:
+lcd_idtable	lcd_spi_ctrl.c	/^static struct spi_device_id lcd_idtable[] = {$/;"	v	typeref:struct:spi_device_id	file:
+lcd_info	last_course_linux/lcd_spi_ctrl.c	/^static struct spi_board_info lcd_info = {$/;"	v	typeref:struct:spi_board_info	file:
+lcd_info	lcd_spi_ctrl.c	/^static struct spi_board_info lcd_info = {$/;"	v	typeref:struct:spi_board_info	file:
+lcd_init	last_course_linux/lcd_ctrl.c	/^module_init(lcd_init);$/;"	v
+lcd_init	last_course_linux/lcd_ctrl.c	/^static int __init lcd_init(void)$/;"	f	file:
+lcd_init	last_course_linux/lcd_spi_ctrl.c	/^module_init(lcd_init);$/;"	v
+lcd_init	last_course_linux/lcd_spi_ctrl.c	/^static int __init lcd_init(void)$/;"	f	file:
+lcd_init	lcd_ctrl.c	/^module_init(lcd_init);$/;"	v
+lcd_init	lcd_ctrl.c	/^static int __init lcd_init(void)$/;"	f	file:
+lcd_init	lcd_spi_ctrl.c	/^module_init(lcd_init);$/;"	v
+lcd_init	lcd_spi_ctrl.c	/^static int __init lcd_init(void)$/;"	f	file:
+lcd_probe	last_course_linux/lcd_spi_ctrl.c	/^static int lcd_probe(struct spi_device *spi)$/;"	f	file:
+lcd_probe	lcd_spi_ctrl.c	/^static int lcd_probe(struct spi_device *spi)$/;"	f	file:
+lcd_remove	last_course_linux/lcd_spi_ctrl.c	/^static int lcd_remove(struct spi_device *spi)$/;"	f	file:
+lcd_remove	lcd_spi_ctrl.c	/^static int lcd_remove(struct spi_device *spi)$/;"	f	file:
+lcd_send_buff	last_course_linux/lcd_lib.c	/^extern void lcd_send_buff()$/;"	f
+lcd_send_buff	last_course_linux/lib/lcd_lib.c	/^extern void lcd_send_buff()$/;"	f
+lcd_send_buff	lib/lcd_lib.c	/^extern void lcd_send_buff()$/;"	f
+lcd_set_contrast	last_course_linux/lcd_lib.c	/^extern void lcd_set_contrast(unsigned char contrast)$/;"	f
+lcd_set_contrast	last_course_linux/lib/lcd_lib.c	/^extern void lcd_set_contrast(unsigned char contrast)$/;"	f
+lcd_set_contrast	lib/lcd_lib.c	/^extern void lcd_set_contrast(unsigned char contrast)$/;"	f
+left	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	e	enum:direction_t	file:
+left_btn_irq	button_ctrl.c	/^static int left_btn_irq;$/;"	v	file:
+main	last_course_linux/multithread_test/main.c	/^int main(){$/;"	f
+main	last_course_linux/snake.c	/^int main(int argc , char *argv[]) {$/;"	f
+main	last_course_linux/spi_test.c	/^int main(int argc, char *argv[])$/;"	f
+main	last_course_linux/test_lcd.c	/^int main()$/;"	f
+main	last_course_linux/test_signal.c	/^int main()$/;"	f
+main	last_course_linux/user_main/test_btn.c	/^int main()$/;"	f
+main	last_course_linux/user_main/test_lcd.c	/^int main()$/;"	f
+main	last_course_linux/user_main/user_space.c	/^int main(void) {$/;"	f
+main	last_course_linux/user_space.c	/^int main(void) {$/;"	f
+main	user_main/test_btn.c	/^int main()$/;"	f
+main	user_main/test_lcd.c	/^int main()$/;"	f
+message	last_course_linux/lcd_ioctl.h	/^	char message[25];$/;"	m	struct:draw_string
+message	last_course_linux/lcd_spi_ctrl.c	/^static char message[20];$/;"	v	file:
+message	lcd_ioctl.h	/^	char message[25];$/;"	m	struct:draw_string
+message	lcd_spi_ctrl.c	/^static char message[20];$/;"	v	file:
+mode	last_course_linux/spi_test.c	/^static uint32_t mode;$/;"	v	file:
+my_dev	last_course_linux/lcd_ctrl.c	/^static struct miscdevice my_dev = {$/;"	v	typeref:struct:miscdevice	file:
+my_dev	last_course_linux/lcd_spi_ctrl.c	/^static struct miscdevice my_dev = {$/;"	v	typeref:struct:miscdevice	file:
+my_dev	lcd_ctrl.c	/^static struct miscdevice my_dev = {$/;"	v	typeref:struct:miscdevice	file:
+my_dev	lcd_spi_ctrl.c	/^static struct miscdevice my_dev = {$/;"	v	typeref:struct:miscdevice	file:
+obj-m	Makefile	/^obj-m := lcd_driver.o$/;"	m
+obj-m	last_course_linux/Makefile	/^obj-m := lcd_driver.o$/;"	m
+obj-m	last_course_linux/Makefile	/^obj-m = button_ctl.o$/;"	m
+open_file	last_course_linux/lcd_lib.c	/^extern int open_file()$/;"	f
+open_file	last_course_linux/lib/lcd_lib.c	/^extern int open_file()$/;"	f
+open_file	lib/lcd_lib.c	/^extern int open_file()$/;"	f
+output_file	last_course_linux/spi_test.c	/^static char *output_file;$/;"	v	file:
+pabort	last_course_linux/spi_test.c	/^static void pabort(const char *s)$/;"	f	file:
+parse_opts	last_course_linux/spi_test.c	/^static void parse_opts(int argc, char *argv[])$/;"	f	file:
+pixel	last_course_linux/lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_circle
+pixel	last_course_linux/lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_pixel
+pixel	last_course_linux/lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_shape
+pixel	last_course_linux/lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_string
+pixel	lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_circle
+pixel	lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_pixel
+pixel	lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_shape
+pixel	lcd_ioctl.h	/^	Pixel_t pixel;$/;"	m	struct:draw_string
+position	last_course_linux/lcd_ioctl.h	/^typedef struct position {$/;"	s
+position	lcd_ioctl.h	/^typedef struct position {$/;"	s
+print_usage	last_course_linux/spi_test.c	/^static void print_usage(const char *prog)$/;"	f	file:
+r	last_course_linux/lcd_ioctl.h	/^	char r;$/;"	m	struct:draw_circle
+r	lcd_ioctl.h	/^	char r;$/;"	m	struct:draw_circle
+right	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	e	enum:direction_t	file:
+right_btn_irq	button_ctrl.c	/^static int right_btn_irq;$/;"	v	file:
+send_sig_to_user	last_course_linux/button_ctl.c	/^static void send_sig_to_user(int sig_val)$/;"	f	file:
+show_transfer_rate	last_course_linux/spi_test.c	/^static void show_transfer_rate(void)$/;"	f	file:
+signal_handle	last_course_linux/test_signal.c	/^void signal_handle(int n, siginfo_t *info, void* data)$/;"	f
+snake	last_course_linux/snake.c	/^struct snake {$/;"	s	file:
+snake_move	last_course_linux/snake.c	/^void snake_move(struct snake *s , int d ) {$/;"	f
+speed	last_course_linux/snake.c	/^static int speed = 10;$/;"	v	file:
+speed	last_course_linux/spi_test.c	/^static uint32_t speed = 500000;$/;"	v	file:
+spi_send	last_course_linux/lcd_5110.c	/^void spi_send(unsigned char data)$/;"	f
+spi_send	lcd_5110.c	/^void spi_send(unsigned char data)$/;"	f
+t	last_course_linux/button_ctl.c	/^static struct task_struct *t;$/;"	v	typeref:struct:task_struct	file:
+thread_control_snake	last_course_linux/multithread_test/main.c	/^void *thread_control_snake(void *argv) {$/;"	f
+thread_control_snake	last_course_linux/snake.c	/^void *thread_control_snake(void *argv) {$/;"	f
+thread_read_file	last_course_linux/multithread_test/main.c	/^void *thread_read_file(void *argv) {$/;"	f
+thread_read_file	last_course_linux/snake.c	/^void *thread_read_file(void *argv) {$/;"	f
+transfer	last_course_linux/spi_test.c	/^static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)$/;"	f	file:
+transfer_buf	last_course_linux/spi_test.c	/^static void transfer_buf(int fd, int len)$/;"	f	file:
+transfer_escaped_string	last_course_linux/spi_test.c	/^static void transfer_escaped_string(int fd, char *str)$/;"	f	file:
+transfer_file	last_course_linux/spi_test.c	/^static void transfer_file(int fd, char *filename)$/;"	f	file:
+transfer_size	last_course_linux/spi_test.c	/^static int transfer_size;$/;"	v	file:
+unescape	last_course_linux/spi_test.c	/^static int unescape(char *_dst, char *_src, size_t len)$/;"	f	file:
+unit8_t	last_course_linux/lcd_5110.h	/^typedef unsigned char			unit8_t;$/;"	t
+unit8_t	lcd_5110.h	/^typedef unsigned char			unit8_t;$/;"	t
+up	last_course_linux/snake.c	/^enum direction_t {f, up , down ,left ,right};$/;"	e	enum:direction_t	file:
+up_btn_irq	button_ctrl.c	/^static int up_btn_irq;$/;"	v	file:
+update_snake_arr_pos	last_course_linux/snake.c	/^void update_snake_arr_pos(struct snake *s) {$/;"	f
+verbose	last_course_linux/spi_test.c	/^static int verbose;$/;"	v	file:
+x	last_course_linux/lcd_ioctl.h	/^	char x;$/;"	m	struct:draw_circle
+x	last_course_linux/lcd_ioctl.h	/^	unsigned char x;$/;"	m	struct:draw_pixel
+x	last_course_linux/lcd_ioctl.h	/^	unsigned char x;$/;"	m	struct:position
+x	lcd_ioctl.h	/^	char x;$/;"	m	struct:draw_circle
+x	lcd_ioctl.h	/^	unsigned char x;$/;"	m	struct:draw_pixel
+x	lcd_ioctl.h	/^	unsigned char x;$/;"	m	struct:position
+x0	last_course_linux/lcd_ioctl.h	/^	unsigned char x0;$/;"	m	struct:draw_shape
+x0	lcd_ioctl.h	/^	unsigned char x0;$/;"	m	struct:draw_shape
+x1	last_course_linux/lcd_ioctl.h	/^	unsigned char x1;$/;"	m	struct:draw_shape
+x1	lcd_ioctl.h	/^	unsigned char x1;$/;"	m	struct:draw_shape
+y	last_course_linux/lcd_ioctl.h	/^	char y;$/;"	m	struct:draw_circle
+y	last_course_linux/lcd_ioctl.h	/^	unsigned char y;$/;"	m	struct:draw_pixel
+y	last_course_linux/lcd_ioctl.h	/^	unsigned char y;$/;"	m	struct:position
+y	lcd_ioctl.h	/^	char y;$/;"	m	struct:draw_circle
+y	lcd_ioctl.h	/^	unsigned char y;$/;"	m	struct:draw_pixel
+y	lcd_ioctl.h	/^	unsigned char y;$/;"	m	struct:position
+y0	last_course_linux/lcd_ioctl.h	/^	unsigned char y0;$/;"	m	struct:draw_shape
+y0	lcd_ioctl.h	/^	unsigned char y0;$/;"	m	struct:draw_shape
+y1	last_course_linux/lcd_ioctl.h	/^	unsigned char y1;$/;"	m	struct:draw_shape
+y1	lcd_ioctl.h	/^	unsigned char y1;$/;"	m	struct:draw_shape

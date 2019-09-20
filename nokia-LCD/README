@@ -1,0 +1,5 @@
+How to Build
+
+In the nokia-LCD directory run command: make
+
+File main test will be user_main directory.
