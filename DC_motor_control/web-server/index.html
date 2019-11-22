@@ -1,0 +1,140 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Motor control</title>
+        <style>body {background-color: #FFFF00 } </style>
+</head>
+
+<body>
+
+<h2>Controller</h2>
+
+<div id="ledon">
+<button type="button" onclick="speed_up()">Tang Toc</button>
+<button type="button" onclick="left_up()">Tien Trai</button>
+<button type="button" onclick="go_straight()">Di Thang</button>
+<button type="button" onclick="right_up()">Tien Phai</button>
+<button type="button" onclick="Stop()">DUNG</button>
+</div>
+
+<div id="ledoff">
+<button type="button" onclick="speed_down()">Giam Toc</button>
+<button type="button" onclick="left_back()">LUI TRAI</button>
+<button type="button" onclick="go_back()">DI LUI</button>
+<button type="button" onclick="right_back()">LUI PHAI</button>
+<button type="button" onclick="shutdown()">Tat Board</button>
+</div>
+
+<script>
+function speed_up() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "SPEED_UP", true);
+  xhttp.send();
+}
+
+function left_up() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "LEFT_UP", true);
+  xhttp.send();
+}
+
+function go_straight() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "GO_STRAIGHT", true);
+  xhttp.send();
+}
+
+function right_up() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "RIGHT_UP", true);
+  xhttp.send();
+}
+
+function speed_down() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "SPEED_DOWN", true);
+  xhttp.send();
+}
+
+function left_back() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "LEFT_BACK", true);
+  xhttp.send();
+}
+
+function go_back() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "GOO_BACK", true);
+  xhttp.send();
+}
+
+function right_back() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "RIGHT_BACK", true);
+  xhttp.send();
+}
+
+function Stop() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "MOTOR_STOP", true);
+  xhttp.send();
+}
+
+function shutdown() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    }
+  };
+  xhttp.open("POST", "SHUTDOWN", true);
+  xhttp.send();
+}
+
+</script>
+
+
+
+</body>
+</html>
+
