@@ -1,5 +1,5 @@
-obj-m := gyro_ctl.o
-obj-m := gyro_i2c_ctl.o
+obj-m := gyro_spi_ctrl.o
+obj-m := gyro_i2c_ctrl.o
 
 KERN_DIR=/home/tungnt58/workspace/testcase/vision/linux
 
