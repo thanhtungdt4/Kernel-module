@@ -237,5 +237,5 @@ module_init(l3g4200d_init);
 module_exit(l3g4200d_exit);
 
 MODULE_LICENSE("GPL v2");
-MODULE_AUTHOR("tungnt58@fsoft.com.vn");
+MODULE_AUTHOR("tungnt58");
 MODULE_DESCRIPTION("This module to get gyroscope sensor value"); 

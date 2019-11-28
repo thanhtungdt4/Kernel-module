@@ -175,5 +175,5 @@ module_init(lcd_init);
 module_exit(lcd_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt58@fsoft.com.vn + LongVH12@fsoft.com.vn");
+MODULE_AUTHOR("Tungnt58 + LongVH12");
 MODULE_DESCRIPTION("This module to control lcd5110");

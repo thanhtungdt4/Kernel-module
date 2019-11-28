@@ -302,5 +302,5 @@ static struct platform_driver motor_driver = {
 module_platform_driver(motor_driver);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt@fih-foxconn.com");
+MODULE_AUTHOR("Tungnt");
 MODULE_DESCRIPTION("This driver to control DC motor");

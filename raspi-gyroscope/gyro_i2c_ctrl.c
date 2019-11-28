@@ -230,4 +230,4 @@ module_init(gyroscope_init);
 module_exit(gyroscope_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt58@fsoft.com.vn");
+MODULE_AUTHOR("Tungnt58");

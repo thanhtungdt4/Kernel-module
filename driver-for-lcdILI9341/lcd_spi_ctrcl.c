@@ -162,6 +162,6 @@ static struct spi_driver lcd_driver = {
 
 module_spi_driver(lcd_driver);
 
-MODULE_AUTHOR("tungnt@fih-foxconn.com");
+MODULE_AUTHOR("tungnt");
 MODULE_VERSION("1.0");
 MODULE_LICENSE("GPL");
