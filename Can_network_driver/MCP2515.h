@@ -3,6 +3,9 @@
 
 #include <linux/spi/spi.h>
 #include <linux/types.h>
+#include <linux/gpio.h>
+
+#include "CANSPI.h"
 
 typedef unsigned char		uint8_t;
 typedef unsigned int		uint32_t;
@@ -91,6 +94,105 @@ typedef unsigned int		uint32_t;
 #define MSG_IN_RXB1		0x02
 #define MSG_IN_BOTH_BUFFERS	0x03
 
+#define CAN_40KBPS		1
+#define CAN_50KBPS		2
+#define CAN_80KBPS		3
+#define CAN_83K3BPS		4
+#define CAN_95KBPS		5
+#define CAN_100KBPS		6
+#define CAN_125KBPS		7
+#define CAN_200KBPS		8
+#define CAN_250KBPS		9
+#define CAN_500KBPS		10
+#define CAN_1000KBPS		11
+
+#define MCP_16MHz		1
+#define MCP_8MHz		2
+
+#define MCP_16MHz_40kBPS_CFG1	0x07
+#define MCP_16MHz_40kBPS_CFG2	0xFF
+#define MCP_16MHz_40kBPS_CFG3	0x87
+
+#define MCP_16MHz_50kBPS_CFG1	0x07
+#define MCP_16MHz_50kBPS_CFG2	0xFA
+#define MCP_16MHz_50kBPS_CFG3	0x87
+
+#define MCP_16MHz_80kBPS_CFG1	0x03
+#define MCP_16MHz_80kBPS_CFG2	0xFF
+#define MCP_16MHz_80kBPS_CFG3	0x87
+
+#define MCP_16MHz_83k3BPS_CFG1	0x03
+#define MCP_16MHz_83k3BPS_CFG2	0xBE
+#define MCP_16MHz_83k3BPS_CFG3	0x07
+
+#define MCP_16MHz_95kBPS_CFG1	0x03
+#define MCP_16MHz_95kBPS_CFG2	0xAD
+#define MCP_16MHz_95kBPS_CFG3	0x07
+
+#define MCP_16MHz_100kBPS_CFG1	0x03
+#define MCP_16MHz_100kBPS_CFG2	0xFA
+#define MCP_16MHz_100kBPS_CFG3	0x87
+
+#define MCP_16MHz_125kBPS_CFG1	0x03
+#define MCP_16MHz_125kBPS_CFG2	0xF0
+#define MCP_16MHz_125kBPS_CFG3	0x86
+
+#define MCP_16MHz_200kBPS_CFG1	0x01
+#define MCP_16MHz_200kBPS_CFG2	0xFA
+#define MCP_16MHz_200kBPS_CFG3	0x87
+
+#define MCP_16MHz_250kBPS_CFG1	0x41
+#define MCP_16MHz_250kBPS_CFG2	0xF1
+#define MCP_16MHz_250kBPS_CFG3	0x85
+
+#define MCP_16MHz_500kBPS_CFG1	0x00
+#define MCP_16MHz_500kBPS_CFG2	0xF0
+#define MCP_16MHz_500kBPS_CFG3	0x86
+
+#define MCP_16MHz_1000kBPS_CFG1	0x00
+#define MCP_16MHz_1000kBPS_CFG2	0xD0
+#define MCP_16MHz_1000kBPS_CFG3	0x82
+
+#define MCP_8MHz_1000kBPS_CFG1	0x00
+#define MCP_8MHz_1000kBPS_CFG2	0x80
+#define MCP_8MHz_1000kBPS_CFG3	0x00
+
+#define MCP_8MHz_500kBPS_CFG1	0x00
+#define MCP_8MHz_500kBPS_CFG2	0x90
+#define MCP_8MHz_500kBPS_CFG3	0x02
+
+#define MCP_8MHz_250kBPS_CFG1	0x00
+#define MCP_8MHz_250kBPS_CFG2	0xB1
+#define MCP_8MHz_250kBPS_CFG3	0x05
+
+#define MCP_8MHz_200kBPS_CFG1	0x00
+#define MCP_8MHz_200kBPS_CFG2	0xB4
+#define MCP_8MHz_200kBPS_CFG3	0x06
+
+#define MCP_8MHz_125kBPS_CFG1	0x01
+#define MCP_8MHz_125kBPS_CFG2	0xB1
+#define MCP_8MHz_125kBPS_CFG3	0x05
+
+#define MCP_8MHz_100kBPS_CFG1	0x01
+#define MCP_8MHz_100kBPS_CFG2	0xB4
+#define MCP_8MHz_100kBPS_CFG3	0x06
+
+#define MCP_8MHz_80kBPS_CFG1	0x01
+#define MCP_8MHz_80kBPS_CFG2	0xBF
+#define MCP_8MHz_80kBPS_CFG3	
+
+#define MCP_8MHz_50kBPS_CFG1	0x03
+#define MCP_8MHz_50kBPS_CFG2	0xB4
+#define MCP_8MHz_50kBPS_CFG3	0x06
+
+#define MCP_8MHz_40kBPS_CFG1	0x03
+#define MCP_8MHz_40kBPS_CFG2	0xBF
+#define MCP_8MHz_40kBPS_CFG3	0x07
+
+#define MCP_RXB_RX_MASK		0x60
+#define MCP_RXB_BUKT_MASK	(1<<2)
+#define MCP_RXB_RX_ANY		0x60
+
 typedef union {
 	struct {
 		unsigned RX0IF		: 1;
@@ -133,17 +235,17 @@ typedef union {
 	struct {
 		uint8_t RXBnSIDH;
 		uint8_t RXBnSIDL;
-		uint8_t RXBnEID8
-		uint8_t RXBnEID0
-		uint8_t RXBnDLC
-		uint8_t RXBnD0
-		uint8_t RXBnD1
-		uint8_t RXBnD2
-		uint8_t RXBnD3
-		uint8_t RXBnD4
-		uint8_t RXBnD5
-		uint8_t RXBnD6
-		uint8_t RXBnD7
+		uint8_t RXBnEID8;
+		uint8_t RXBnEID0;
+		uint8_t RXBnDLC;
+		uint8_t RXBnD0;
+		uint8_t RXBnD1;
+		uint8_t RXBnD2;
+		uint8_t RXBnD3;
+		uint8_t RXBnD4;
+		uint8_t RXBnD5;
+		uint8_t RXBnD6;
+		uint8_t RXBnD7;
 	};
 	uint8_t rx_reg_array[13];
 } rx_reg_t;
@@ -159,7 +261,7 @@ typedef struct {
 	uint8_t RXF1SIDH;
 	uint8_t RXF1SIDL;
 	uint8_t RXF1EID8;
-	uint8_t RXF1EID0
+	uint8_t RXF1EID0;
 } RXF1;
 
 typedef struct {
@@ -211,25 +313,8 @@ typedef struct {
 	uint8_t tempEID0;
 } id_reg_t;
 
-typedef union {
-	struct {
-		uint8_t idType;
-		uint32_t id;
-		uint8_t dlc;
-		uint8_t data0;
-		uint8_t data1;
-		uint8_t data2;
-		uint8_t data3;
-		uint8_t data4;
-		uint8_t data5;
-		uint8_t data6;
-		uint8_t data7;
-	} frame;
-	uint8_t array[14];
-} uCAN_MSG;
-
 void SPI_Tx(void *spi_dev, uint8_t data);
-void SPI_Rx(void *spi_dev);
+uint8_t SPI_Rx(void *spi_dev);
 void MCP2515_BitModify(void *spi_dev, uint8_t address, uint8_t mask,
 			uint8_t data);
 uint8_t MCP2515_GetRxStatus(void *spi_dev);
@@ -243,19 +328,21 @@ void MCP2515_WriteByteSequence(void *spi_dev, uint8_t startAddress,
 void MCP2515_WriteByte(void *spi_dev, uint8_t address, uint8_t data);
 void MCP2515_ReadRxSequence(void *spi_dev, uint8_t instruction, uint8_t *data,
 				uint8_t len);
-void MCP2515_ReadByte(void *spi_dev, uint8_t address);
+uint8_t MCP2515_ReadByte(void *spi_dev, uint8_t address);
 void MCP2515_Reset(void *spi_dev);
 bool MCP2515_SetSleepMode(void *spi_dev);
 bool MCP2515_SetNormalMode(void *spi_dev);
 bool MCP2515_SetConfigMode(void *spi_dev);
 void CANSPI_Sleep(void *spi_dev);
-bool CANSPI_Initialize(void *spi_dev);
+bool MCP2515_configRate(void *spi_dev, uint8_t canSpeed, uint8_t clock);
+bool CANSPI_Initialize(void *spi_dev, uint8_t canSpeed, uint8_t clock);
 uint32_t convertReg2ExtendedCANid(uint8_t tempRXBn_EIDH, uint8_t tempRXBn_EIDL,
 				uint8_t tempRXBn_SIDH, uint8_t tempRXBn_SIDL);
 uint32_t convertReg2StandardCANid(uint8_t tempRXBn_SIDH, uint8_t tempRXBn_SIDL);
 void convertCANid2Reg(uint8_t tempPassedInID, uint8_t canIdType,
 			id_reg_t *passedIdReg);
 uint8_t CANSPI_Transmit(void *spi_dev, uCAN_MSG *tempCanMsg);
+uint8_t CANSPI_Receive(void *spi_dev, uCAN_MSG *tempCanMsg);
 uint8_t CANSPI_messagesInBuffer(void *spi_dev);
 uint8_t CANSPI_isBussOff(void *spi_dev);
 uint8_t CANSPI_isRxErrorPassive(void *spi_dev);

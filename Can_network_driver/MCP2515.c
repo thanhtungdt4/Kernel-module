@@ -1,15 +1,25 @@
 #include "MCP2515.h"
+#include <linux/delay.h>
+#include <linux/jiffies.h>
+
+#define CS_PIN		24
 
 id_reg_t idReg;
 ctrl_status_t ctrlStatus;
 ctrl_error_status_t errorStatus;
+
+void gpio_set_pin(int gpio, int state)
+{
+	gpio_direction_output(gpio, 1);
+	gpio_set_value(gpio, state);
+}
 
 void SPI_Tx(void *spi_dev, uint8_t data)
 {
 	spi_write(spi_dev, &data, 1);
 }
 
-void SPI_Rx(void *spi_dev)
+uint8_t SPI_Rx(void *spi_dev)
 {
 	uint8_t ret;
 
@@ -21,17 +31,25 @@ void SPI_Rx(void *spi_dev)
 void MCP2515_BitModify(void *spi_dev, uint8_t address, uint8_t mask,
 			uint8_t data)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev, MCP2515_BIT_MOD);
-	SPI_TX(spi_dev, address);
-	SPI_TX(spi_dev, data);
+	SPI_Tx(spi_dev, address);
+	SPI_Tx(spi_dev, data);
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 uint8_t MCP2515_GetRxStatus(void *spi_dev)
 {
 	uint8_t ret;
 
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev, MCP2515_RX_STATUS);
 	ret = SPI_Rx(spi_dev);
+
+	gpio_set_pin(CS_PIN, 1);
 
 	return ret;
 }
@@ -40,45 +58,69 @@ uint8_t MCP2515_ReadStatus(void *spi_dev)
 {
 	uint8_t ret;
 
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev, MCP2515_READ_STATUS);
 	ret = SPI_Rx(spi_dev);
+
+	gpio_set_pin(CS_PIN, 1);
 
 	return ret;
 }
 
 void MCP2515_RequestToSend(void *spi_dev, uint8_t instruction)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev, instruction);
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 void MCP2515_LoadTxBuffer(void *spi_dev, uint8_t instruction, uint8_t data)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev,instruction);
 	SPI_Tx(spi_dev, data);
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 void MCP2515_LoadTxSequence(void *spi_dev, uint8_t instruction, uint8_t *idReg,
 				uint8_t dlc, uint8_t *data)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev,instruction);
-	spi_write(spi_dev, idRegm 4);
+	spi_write(spi_dev, idReg, 4);
 	SPI_Tx(spi_dev, dlc);
 	spi_write(spi_dev, data, dlc);
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 void MCP2515_WriteByteSequence(void *spi_dev, uint8_t startAddress,
 		uint8_t endAddress, uint8_t *data)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev,MCP2515_WRITE);
 	SPI_Tx(spi_dev, startAddress);
-	spi_write(spi_dev, data, (endAddress - startAddress + 1);
+	spi_write(spi_dev, data, (endAddress - startAddress + 1));
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 void MCP2515_WriteByte(void *spi_dev, uint8_t address, uint8_t data)
 {
+	gpio_set_pin(CS_PIN, 0);
+
 	SPI_Tx(spi_dev,MCP2515_WRITE);
 	SPI_Tx(spi_dev, address);
 	SPI_Tx(spi_dev, data);
+
+	gpio_set_pin(CS_PIN, 1);
 }
 
 void MCP2515_ReadRxSequence(void *spi_dev, uint8_t instruction, uint8_t *data,
@@ -88,13 +130,19 @@ void MCP2515_ReadRxSequence(void *spi_dev, uint8_t instruction, uint8_t *data,
 	spi_read(spi_dev, data, len);
 }
 
-void MCP2515_ReadByte(void *spi_dev, uint8_t address)
+uint8_t MCP2515_ReadByte(void *spi_dev, uint8_t address)
 {
-	int ret;
+	uint8_t ret = 0;
+
+	gpio_set_pin(CS_PIN, 0);
 
 	SPI_Tx(spi_dev, MCP2515_READ);
 	SPI_Tx(spi_dev, address);
 	ret = SPI_Rx(spi_dev);
+
+	gpio_set_pin(CS_PIN, 1);
+
+	return ret;
 }
 
 void MCP2515_Reset(void *spi_dev)
@@ -109,7 +157,7 @@ bool MCP2515_SetSleepMode(void *spi_dev)
 	MCP2515_WriteByte(spi_dev, MCP2515_CANCTRL, 0x20);
 
 	do {
-		if (MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT & 0xE0) == 0x20)
+		if ((MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT) & 0xE0) == 0x20)
 			return true;
 		loop--;
 	} while (loop > 0);
@@ -120,12 +168,21 @@ bool MCP2515_SetSleepMode(void *spi_dev)
 bool MCP2515_SetNormalMode(void *spi_dev)
 {
 	uint8_t loop = 10;
+	uint8_t ret = 0;
+	uint8_t ret2 = 0;
 
 	MCP2515_WriteByte(spi_dev, MCP2515_CANCTRL, 0x00);
-
+	ret2 = MCP2515_ReadByte(spi_dev, MCP2515_CANCTRL);
+	pr_info("Tung: ret2 = %d\n", ret2);
+	
 	do {
-		if (MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT & 0xE0) == 0x00)
+		ret = MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT);
+		if ((ret & 0xE0) == 0x00) {
+			pr_info("Tung: Set normal mode ok %d\n", ret);
 			return true;
+		} else {
+			pr_err("Tung: Set normal mode failed %d\n", ret);
+		}
 		loop--;
 	} while (loop > 0);
 
@@ -134,17 +191,27 @@ bool MCP2515_SetNormalMode(void *spi_dev)
 
 bool MCP2515_SetConfigMode(void *spi_dev)
 {
-	uint8_t loop = 10;
+	uint8_t ret = 0;
+	uint8_t ret2 = 0;
+	unsigned long timeout;
 
+	MCP2515_Reset(spi_dev);
+	mdelay(100);
+
+	timeout = jiffies + HZ;
 	MCP2515_WriteByte(spi_dev, MCP2515_CANCTRL, 0x80);
+	ret2 = MCP2515_ReadByte(spi_dev, MCP2515_CANCTRL);
+	pr_info("Tung: ret2 = %d\n", ret2);
 
-	do {
-		if (MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT & 0xE0) == 0x80)
-			return true;
-		loop--;
-	} while (loop > 0);
+	while ((ret = MCP2515_ReadByte(spi_dev, MCP2515_CANSTAT) & 0xE0) != 0x80){
+		if (time_after(jiffies, timeout)) {
+			pr_err("Tung: MCP251x didn't enter in conf mode after reset: %d\n", ret);
+			return false;
+		}
+	}
+	pr_info("Tung: ret = %d\n", ret);
 
-	return false;
+	return true;
 }
 
 void CANSPI_Sleep(void *spi_dev)
@@ -154,7 +221,160 @@ void CANSPI_Sleep(void *spi_dev)
 	MCP2515_SetSleepMode(spi_dev);
 }
 
-bool CANSPI_Initialize(void *spi_dev)
+bool MCP2515_configRate(void *spi_dev, uint8_t canSpeed, uint8_t clock)
+{
+	uint8_t set = 1;
+	uint8_t cfg1, cfg2, cfg3;
+
+	switch (clock) {
+	case MCP_16MHz:
+		switch (canSpeed) {
+		case CAN_40KBPS:
+			cfg1 = MCP_16MHz_40kBPS_CFG1;
+			cfg2 = MCP_16MHz_40kBPS_CFG2;
+			cfg3 = MCP_16MHz_40kBPS_CFG3;
+			break;
+		case CAN_50KBPS:
+			cfg1 = MCP_16MHz_50kBPS_CFG1;
+			cfg2 = MCP_16MHz_50kBPS_CFG2;
+			cfg3 = MCP_16MHz_50kBPS_CFG3;
+			break;
+
+		case CAN_80KBPS:
+			cfg1 = MCP_16MHz_80kBPS_CFG1;
+			cfg2 = MCP_16MHz_80kBPS_CFG2;
+			cfg3 = MCP_16MHz_80kBPS_CFG3;
+			break;
+
+		case CAN_83K3BPS:
+			cfg1 = MCP_16MHz_83k3BPS_CFG1;
+			cfg2 = MCP_16MHz_83k3BPS_CFG2;
+			cfg3 = MCP_16MHz_83k3BPS_CFG3;
+			break;
+	
+		case CAN_95KBPS:
+			cfg1 = MCP_16MHz_95kBPS_CFG1;
+			cfg2 = MCP_16MHz_95kBPS_CFG2;
+			cfg3 = MCP_16MHz_95kBPS_CFG3;
+			break;
+
+		case CAN_100KBPS:
+			cfg1 = MCP_16MHz_100kBPS_CFG1;
+			cfg2 = MCP_16MHz_100kBPS_CFG2;
+			cfg3 = MCP_16MHz_100kBPS_CFG3;
+			break;
+
+		case CAN_125KBPS:
+			cfg1 = MCP_16MHz_125kBPS_CFG1;
+			cfg2 = MCP_16MHz_125kBPS_CFG2;
+			cfg3 = MCP_16MHz_125kBPS_CFG3;
+			break;
+
+		case CAN_200KBPS:
+			cfg1 = MCP_16MHz_200kBPS_CFG1;
+			cfg2 = MCP_16MHz_200kBPS_CFG2;
+			cfg3 = MCP_16MHz_200kBPS_CFG3;
+			break;
+
+		case CAN_250KBPS:
+			cfg1 = MCP_16MHz_250kBPS_CFG1;
+			cfg2 = MCP_16MHz_250kBPS_CFG2;
+			cfg3 = MCP_16MHz_250kBPS_CFG3;
+			break;
+
+		case CAN_500KBPS:
+			cfg1 = MCP_16MHz_500kBPS_CFG1;
+			cfg2 = MCP_16MHz_500kBPS_CFG2;
+			cfg3 = MCP_16MHz_500kBPS_CFG3;
+			break;
+
+		case CAN_1000KBPS:
+			cfg1 = MCP_16MHz_1000kBPS_CFG1;
+			cfg2 = MCP_16MHz_1000kBPS_CFG2;
+			cfg3 = MCP_16MHz_1000kBPS_CFG3;
+			break;
+		default:
+			set = 0;
+			break;
+		}
+	case MCP_8MHz:
+		switch (canSpeed) {
+		case CAN_40KBPS:
+			cfg1 = MCP_8MHz_40kBPS_CFG1;
+			cfg2 = MCP_8MHz_40kBPS_CFG2;
+			cfg3 = MCP_8MHz_40kBPS_CFG3;
+			break;
+
+		case CAN_50KBPS:
+			cfg1 = MCP_8MHz_50kBPS_CFG1;
+			cfg2 = MCP_8MHz_50kBPS_CFG2;
+			cfg3 = MCP_8MHz_50kBPS_CFG3;
+			break;
+
+		//case CAN_80KBPS:
+		//	cfg1 = MCP_8MHz_80kBPS_CFG1;
+		//	cfg2 = MCP_8MHz_80kBPS_CFG2;
+		//	cfg3 = MCP_8MHz_80kBPS_CFG3;
+		//	break;
+
+		case CAN_100KBPS:
+			cfg1 = MCP_8MHz_100kBPS_CFG1;
+			cfg2 = MCP_8MHz_100kBPS_CFG2;
+			cfg3 = MCP_8MHz_100kBPS_CFG3;
+			break;
+
+		case CAN_125KBPS:
+			cfg1 = MCP_8MHz_125kBPS_CFG1;
+			cfg2 = MCP_8MHz_125kBPS_CFG2;
+			cfg3 = MCP_8MHz_125kBPS_CFG3;
+			break;
+
+		case CAN_200KBPS:
+			cfg1 = MCP_8MHz_200kBPS_CFG1;
+			cfg2 = MCP_8MHz_200kBPS_CFG2;
+			cfg3 = MCP_8MHz_200kBPS_CFG3;
+			break;
+
+		case CAN_250KBPS:
+			cfg1 = MCP_8MHz_250kBPS_CFG1;
+			cfg2 = MCP_8MHz_250kBPS_CFG2;
+			cfg3 = MCP_8MHz_250kBPS_CFG3;
+			break;
+
+		case CAN_500KBPS:
+			cfg1 = MCP_8MHz_500kBPS_CFG1;
+			cfg2 = MCP_8MHz_500kBPS_CFG2;
+			cfg3 = MCP_8MHz_500kBPS_CFG3;
+			break;
+
+		case CAN_1000KBPS:
+			cfg1 = MCP_8MHz_1000kBPS_CFG1;
+			cfg2 = MCP_8MHz_1000kBPS_CFG2;
+			cfg3 = MCP_8MHz_1000kBPS_CFG3;
+			break;
+
+		default:
+			set = 0;
+			break;
+		}
+		break;
+
+	default:
+		set = 0;
+		break;	
+	}
+
+	if (set) {
+		MCP2515_WriteByte(spi_dev, MCP2515_CNF1, cfg1);
+		MCP2515_WriteByte(spi_dev, MCP2515_CNF2, cfg2);
+		MCP2515_WriteByte(spi_dev, MCP2515_CNF3, cfg3);
+		return true;
+	} else	
+		return false;
+
+}
+
+bool CANSPI_Initialize(void *spi_dev, uint8_t canSpeed, uint8_t clock)
 {
 	RXF0 RXF0reg;
 	RXF1 RXF1reg;
@@ -205,35 +425,49 @@ bool CANSPI_Initialize(void *spi_dev)
 	RXF5reg.RXF5EID8 = 0x00;
 	RXF5reg.RXF5EID0 = 0x00;
 
-	if (!MCP2515_SetConfigMode())
+	gpio_request(CS_PIN, "CS pin");
+
+	if (!MCP2515_SetConfigMode(spi_dev)) {
+		pr_err("Tung: Set config mode failed\n");
 		return false;
+	}
 
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXM0SIDH, MCP2515_RXM0EID0,
-				&(RXM0reg.RXM0SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXM1SIDH, MCP2515_RXM1EID0,
-				&(RXM1reg.RXM1SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF0SIDH, MCP2515_RXF0EID0,
-				&(RXF0reg.RXF0SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF1SIDH, MCP2515_RXF1EID0,
-				&(RXF1reg.RXF1SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF2SIDH, MCP2515_RXF2EID0,
-				&(RXF2reg.RXF2SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF3SIDH, MCP2515_RXF3EID0,
-				&(RXF3reg.RXF3SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF4SIDH, MCP2515_RXF4EID0,
-				&(RXF4reg.RXF4SIDH));
-	MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF5SIDH, MCP2515_RXF5EID0,
-				&(RXF5reg.RXF5SIDH));
+	MCP2515_configRate(spi_dev, canSpeed, clock);
+	mdelay(10);
 
-	MCP2515_WriteByte(spi_dev, MCP2515_RXB0CTRL, 0x04);
-	MCP2515_WriteByte(spi_dev, MCP2515_RXB1CTRL, 0x01);
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXM0SIDH, MCP2515_RXM0EID0,
+	//			&(RXM0reg.RXM0SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXM1SIDH, MCP2515_RXM1EID0,
+	//			&(RXM1reg.RXM1SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF0SIDH, MCP2515_RXF0EID0,
+	//			&(RXF0reg.RXF0SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF1SIDH, MCP2515_RXF1EID0,
+	//			&(RXF1reg.RXF1SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF2SIDH, MCP2515_RXF2EID0,
+	//			&(RXF2reg.RXF2SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF3SIDH, MCP2515_RXF3EID0,
+	//			&(RXF3reg.RXF3SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF4SIDH, MCP2515_RXF4EID0,
+	//			&(RXF4reg.RXF4SIDH));
+	//MCP2515_WriteByteSequence(spi_dev, MCP2515_RXF5SIDH, MCP2515_RXF5EID0,
+	//			&(RXF5reg.RXF5SIDH));
 
-	MCP2515_WriteByte(spi_dev, MCP2515_CNF1, 0x00);
-	MCP2515_WriteByte(spi_dev, MCP2515_CNF2, 0xE5);
-	MCP2515_WriteByte(spi_dev, MCP2515_CNF3, 0x83);
+	//MCP2515_WriteByte(spi_dev, MCP2515_RXB0CTRL, 0x04);
+	//MCP2515_WriteByte(spi_dev, MCP2515_RXB1CTRL, 0x01);
 
-	if (!MCP2515_SetNormalMode())
+	MCP2515_BitModify(spi_dev, MCP2515_RXB0CTRL, (MCP_RXB_RX_MASK | MCP_RXB_BUKT_MASK),
+			 (MCP_RXB_RX_ANY | MCP_RXB_BUKT_MASK));
+
+	MCP2515_BitModify(spi_dev, MCP2515_RXB1CTRL, MCP_RXB_RX_MASK,
+				MCP_RXB_RX_ANY);
+
+
+	if (!MCP2515_SetNormalMode(spi_dev)) {
+		pr_err("Tung: Set normal mode failed\n");
 		return false;
+	}
+
+	return true;
 }
 
 uint32_t convertReg2ExtendedCANid(uint8_t tempRXBn_EIDH, uint8_t tempRXBn_EIDL,
@@ -311,6 +545,8 @@ uint8_t CANSPI_Transmit(void *spi_dev, uCAN_MSG *tempCanMsg)
 	idReg.tempEID0 = 0;
 
 	ctrlStatus.ctrl_status = MCP2515_ReadStatus(spi_dev);
+	pr_info("Tung: read status in transmit is %d\n", ctrlStatus.ctrl_status);
+
 	if (ctrlStatus.TXB0REQ != 1) {
 		convertCANid2Reg(tempCanMsg->frame.id, tempCanMsg->frame.idType,
 					&idReg);
@@ -319,7 +555,7 @@ uint8_t CANSPI_Transmit(void *spi_dev, uCAN_MSG *tempCanMsg)
 				&(tempCanMsg->frame.data0));
 		MCP2515_RequestToSend(spi_dev, MCP2515_RTS_TX0);
 		ret = 1;
-	} else if (ctrlStatus.TXB2REQ != 1) {
+	} else if (ctrlStatus.TXB1REQ != 1) {
 		convertCANid2Reg(tempCanMsg->frame.id, tempCanMsg->frame.idType,
 					&idReg);
 		MCP2515_LoadTxSequence(spi_dev, MCP2515_LOAD_TXB1SIDH,
@@ -347,6 +583,7 @@ uint8_t CANSPI_Receive(void *spi_dev, uCAN_MSG *tempCanMsg)
 	ctrl_rx_status_t rxStatus;
 
 	rxStatus.ctrl_rx_status = MCP2515_GetRxStatus(spi_dev);
+	pr_info("Tung: RX status is %d\n", rxStatus.ctrl_rx_status);
 
 	if (rxStatus.rxBuffer != 0) {
 		if ((rxStatus.rxBuffer == MSG_IN_RXB0) | 
@@ -380,6 +617,10 @@ uint8_t CANSPI_Receive(void *spi_dev, uCAN_MSG *tempCanMsg)
 		tempCanMsg->frame.data5 = rxReg.RXBnD5;
 		tempCanMsg->frame.data6 = rxReg.RXBnD6;
 		tempCanMsg->frame.data7 = rxReg.RXBnD7;
+
+		pr_info("Tung: data0 is %d\n", rxReg.RXBnD0);
+		pr_info("Tung: data1 is %d\n", rxReg.RXBnD1);
+		pr_info("Tung: data2 is %d\n", rxReg.RXBnD2);
 
 		ret = 1;
 	}
