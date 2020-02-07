@@ -18,3 +18,6 @@ Reference
  - https://www.microchip.com/forums/download.axd?file=0;993019
  - http://ww1.microchip.com/downloads/en/DeviceDoc/21801F.pdf
 
+
+the way to get virtual irq number
+https://stackoverflow.com/questions/40011799/mapping-device-tree-interrupt-flags-to-devm-request-irq
