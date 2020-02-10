@@ -57,6 +57,10 @@ static ssize_t dev_read(struct file *filep, char *buf, size_t len,
 		}
 		canid = getCanId();
 		pr_info("data0 is %d, canid is %d\n", can_buf[0], canid);
+		mcp2515_modifyRegister(can_dev->spi_dev, MCP_CANINTF, 0x01,
+					0x00);
+		mcp2515_modifyRegister(can_dev->spi_dev, MCP_CANINTF, 0x02,
+					0x00);
 
 		return sizeof(can_len);
 	}
@@ -77,7 +81,32 @@ static ssize_t dev_write(struct file *filep, const char *buf, size_t len,
 
 static irqreturn_t can_irq_handle(int irq, void *data)
 {
-	pr_info("Tung: Jump to interrupt handler\n");
+	uint8_t can_len =0;
+	uint8_t can_buf[8];
+	uint8_t canid;
+	uint8_t status;
+	struct my_can_device *can_dev = (struct my_can_device *)data;
+
+	pr_info("Tung: Jump to interrupt handler: debug %d\n", can_dev->debug);
+
+	if (CAN_MSGAVAIL == checkReceive(can_dev->spi_dev)) {
+		if (readMsgBuf(can_dev->spi_dev, &can_len, can_buf) == CAN_NOMSG) {
+			pr_err("No Can message\n");
+		}
+		canid = getCanId();
+		pr_info("data0 is %d, canid is %d\n", can_buf[0], canid);
+	}
+
+	status = readRxTxStatus(can_dev->spi_dev);
+	if (status & MCP_RX0IF) {
+		/*clear RX0 interrupt flags*/
+		mcp2515_modifyRegister(can_dev->spi_dev, MCP_CANINTF, 0x01,
+					0x00);
+	} else if (status & MCP_RX1IF) {
+		/* clear Rx1 interrupt flags*/
+		mcp2515_modifyRegister(can_dev->spi_dev, MCP_CANINTF, 0x02,
+					0x00);
+	}
 
 	return IRQ_HANDLED;
 }
@@ -115,7 +144,7 @@ static int dev_probe(struct spi_device *spi)
 	ret = devm_request_irq(&spi->dev, spi->irq,
 				(irq_handler_t)can_irq_handle,
 				IRQF_TRIGGER_FALLING,
-				"can driver", NULL);
+				"can driver", can_dev);
 	if (ret) {
 		pr_err("Tung: Can not request interrupt\n");
 		return ret;
