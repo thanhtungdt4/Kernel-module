@@ -1,7 +1,7 @@
 obj-m := gyro_spi_ctrl.o
 obj-m := gyro_i2c_ctrl.o
 
-KERN_DIR=/home/tungnt58/workspace/testcase/vision/linux
+KERN_DIR=/home/tung/workspace/testcase/vision/linux
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

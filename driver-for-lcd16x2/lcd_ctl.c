@@ -129,6 +129,6 @@ module_init(example_init);
 module_exit(example_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("tungnt58-khotv");
+MODULE_AUTHOR("tung-kho");
 MODULE_VERSION("0.1");
 

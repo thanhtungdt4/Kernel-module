@@ -93,4 +93,4 @@ module_init(example_init);
 module_exit(example_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt58");
+MODULE_AUTHOR("Tung");

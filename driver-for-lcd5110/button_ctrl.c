@@ -180,5 +180,5 @@ module_init(button_init);
 module_exit(button_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt58 + LongVH12");
+MODULE_AUTHOR("Tung + Long");
 MODULE_DESCRIPTION("This module to control button\n");

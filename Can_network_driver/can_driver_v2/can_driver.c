@@ -5,6 +5,7 @@
 #include <linux/fs.h>
 #include <linux/uaccess.h>
 #include <linux/interrupt.h>
+#include <linux/spinlock.h>
 
 #include "mcp_can_dfs.h"
 
@@ -13,6 +14,7 @@ struct my_can_device {
 	struct spi_device *spi_dev;
 	struct file_operations fops;
 	struct miscdevice my_dev;
+	spinlock_t spin_lock;
 };
 
 #define to_my_can_device(x)	container_of(x, struct my_can_device, fops)
@@ -85,9 +87,13 @@ static irqreturn_t can_irq_handle(int irq, void *data)
 	uint8_t can_buf[8];
 	uint8_t canid;
 	uint8_t status;
+	unsigned long flag;
 	struct my_can_device *can_dev = (struct my_can_device *)data;
 
 	pr_info("Tung: Jump to interrupt handler: debug %d\n", can_dev->debug);
+
+	spin_lock_irqsave(&can_dev->spin_lock, flag);
+	//spin_lock(&can_dev->spin_lock);
 
 	if (CAN_MSGAVAIL == checkReceive(can_dev->spi_dev)) {
 		if (readMsgBuf(can_dev->spi_dev, &can_len, can_buf) == CAN_NOMSG) {
@@ -107,6 +113,9 @@ static irqreturn_t can_irq_handle(int irq, void *data)
 		mcp2515_modifyRegister(can_dev->spi_dev, MCP_CANINTF, 0x02,
 					0x00);
 	}
+
+	spin_unlock_irqrestore(&can_dev->spin_lock, flag);
+	//spin_unlock(&can_dev->spin_lock);
 
 	return IRQ_HANDLED;
 }
@@ -133,6 +142,9 @@ static int dev_probe(struct spi_device *spi)
 	can_dev->my_dev.fops = &can_dev->fops;
 	spi_set_drvdata(spi, can_dev);
 
+	/*init spin lock */
+	spin_lock_init(&can_dev->spin_lock);
+
 	misc_register(&can_dev->my_dev);
 
 	/*Initialize Can device*/
@@ -141,9 +153,9 @@ static int dev_probe(struct spi_device *spi)
 	} else
 		pr_info("Can init sucessfully\n");
 
-	ret = devm_request_irq(&spi->dev, spi->irq,
+	ret = devm_request_threaded_irq(&spi->dev, spi->irq, NULL,
 				(irq_handler_t)can_irq_handle,
-				IRQF_TRIGGER_FALLING,
+				IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
 				"can driver", can_dev);
 	if (ret) {
 		pr_err("Tung: Can not request interrupt\n");
