@@ -1,0 +1,5 @@
+
+Tea5767@60 {
+	compatible = "Tea5767,Tea5767-i2c";
+	reg = <0x60>;
+};
