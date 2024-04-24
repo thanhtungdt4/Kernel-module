@@ -5,5 +5,4 @@ Add below lines to node "uart0: serial@7e201000" in bcm283x.dtsi
                                 pinctrl-0 = <&uart0_gpio14>;
                                 pinctrl-names = "default";
                         };
-uart slave node
 
