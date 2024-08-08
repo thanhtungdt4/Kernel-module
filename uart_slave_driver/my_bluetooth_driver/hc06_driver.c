@@ -170,5 +170,5 @@ static struct serdev_device_driver hc06_bluetooth_driver = {
 module_serdev_device_driver(hc06_bluetooth_driver);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Tungnt@fih-foxconn.com");
+MODULE_AUTHOR("Tungnt");
 MODULE_DESCRIPTION("Serial driver for hc06 bluetooth module");
