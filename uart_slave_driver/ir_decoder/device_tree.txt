@@ -1,0 +1,11 @@
+&uart3 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&uart3_pins>;
+        status = "okay";
+
+        ir_decoder{
+                compatible = "ti,ir_decoder";
+                current-speed = <9600>;
+                status = "okay";
+        };
+};
