@@ -1,0 +1,11 @@
+&i2c1 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&i2c1_pins>;
+        clock-frequency = <100000>;
+        status = "okay";
+
+        //bh1750@23 {
+        //      compatible = "rohm,bh1750";
+        //      reg = <0x23>;
+        //      status = "okay";
+        //};
