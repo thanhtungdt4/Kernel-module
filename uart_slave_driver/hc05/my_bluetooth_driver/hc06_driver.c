@@ -6,80 +6,109 @@
 #include <linux/delay.h>
 #include <linux/device.h>
 #include <linux/fs.h>
+#include <linux/wait.h>
 #include <linux/uaccess.h>
 #include <linux/cdev.h>
 
-#define CMD		"AT+VERSION?"
-
-struct hc06_bluetooth {
-	int data;
-	dev_t			major;
-	struct cdev 		cdev;
-	struct device 		*device;
-	struct class 		*class;
-	struct serdev_device 	*sdev;
+struct bluetooth_device {
+	bool                 has_data;
+	dev_t                major;
+	wait_queue_head_t    wait_queue;
+	struct cdev          cdev;
+	struct device        *device;
+	struct class         *class;
+	struct serdev_device *sdev;
 };
 
-#define to_bluetooth_dev(x) container_of(x, struct hc06_bluetooth, cdev)
+#define to_bluetooth_dev(x) container_of(x, struct bluetooth_device, cdev)
 
-static int dev_open(struct inode *inodep, struct file *filep)
+static __poll_t bt_device_poll(struct file *filep, struct poll_table_struct *wait)
 {
-	pr_info("open file\n");
+	__poll_t mask = 0;
+	struct bluetooth_device *btdev = to_bluetooth_dev(filep->f_inode->i_cdev);
 
+	poll_wait(filep, &btdev->wait_queue, wait);
+	if (btdev->has_data) {
+		btdev->has_data = false;
+		mask |= POLLIN | POLLRDNORM;
+	}
+
+	return mask;
+}
+
+static ssize_t bt_device_read(struct file *filep, char __user *buf, 
+	size_t size, loff_t *offset)
+{
 	return 0;
 }
 
-static ssize_t dev_write(struct file *filep, const char *buf, size_t len,
+static ssize_t dt_device_write(struct file *filep, const char *buf, size_t len,
 				loff_t *ofset)
 {
 	int ret;
-	struct hc06_bluetooth *hc06 = to_bluetooth_dev(filep->f_inode->i_cdev);
-	char message[20];
+	struct bluetooth_device *btdev = to_bluetooth_dev(filep->f_inode->i_cdev);
+	char *message;
+
+	message = kmalloc(len, GFP_KERNEL);
+	if (!message)
+		return -ENOMEM;
 
 	ret = copy_from_user(message, buf, len);
 	if (ret) {
 		pr_err("can not copy from user\n");
+		kfree(message);
+		return -EFAULT;
 	}
 	pr_info("get from user: %s\n", message);
 
-	ret = serdev_device_write(hc06->sdev, message, sizeof(message), 2*HZ);
+	ret = serdev_device_write(btdev->sdev, message, sizeof(message), 2*HZ);
 	pr_info("ret = %d\n", ret);
+
+	kfree(message);
 
 	return len;
 }
 
 static struct file_operations fops = {
-	.open = dev_open,
-	.write = dev_write,
+	.write = dt_device_write,
+	.read  = bt_device_read,
+	.poll  = bt_device_poll
 };
 
-static int hc06_receive_buf(struct serdev_device *sdev,
+static int bt_device_receive_buf(struct serdev_device *sdev,
 			const unsigned char *data, size_t count)
 {
+	struct bluetooth_device *btdev = serdev_device_get_drvdata(sdev);
+
 	pr_info("Jump to %s function\n", __func__);
-	pr_info("read from hc06: %s\n", data);
+	pr_info("read from bt module: %s\n", data);
 
 	return 0;
 }
 
-static struct serdev_device_ops hc06_bluetooth_ops = {
-	.receive_buf = hc06_receive_buf,
+static struct serdev_device_ops bluetooth_device_ops = {
+	.receive_buf = bt_device_receive_buf,
 	.write_wakeup = serdev_device_write_wakeup,
 };
 
-static int hc06_bluetooth_probe(struct serdev_device *sdev)
+static int bluetooth_device_probe(struct serdev_device *sdev)
 {
-	struct hc06_bluetooth *hc06;
+	struct bluetooth_device *btdev;
+	int baudrate;
 	int ret;
 
-	hc06 = devm_kzalloc(&sdev->dev, sizeof(struct hc06_bluetooth),
+	btdev = devm_kzalloc(&sdev->dev, sizeof(struct bluetooth_device),
 				GFP_KERNEL);
-	if (!hc06)
+	if (!btdev)
 		return -ENOMEM;
 
-	hc06->data = 1;
-	hc06->sdev = sdev;
-	serdev_device_set_drvdata(sdev, hc06);
+	if (of_property_read_u32(sdev->dev.of_node, "current-speed", &baudrate) == 0) {
+		pr_info("[Tung] baudrate: %d\n", baudrate);
+	}
+
+	btdev->has_data = false;
+	btdev->sdev = sdev;
+	serdev_device_set_drvdata(sdev, btdev);
 
 	pr_info("Tung: bus type is %s\n", sdev->ctrl->dev.bus->name);
 
@@ -89,41 +118,38 @@ static int hc06_bluetooth_probe(struct serdev_device *sdev)
 		goto Failed_alloc_chrdev;
 	}
 
+	init_waitqueue_head(&btdev->wait_queue);
+
 	pr_info("[Tung]: open success device number %d on serdev bus\n", sdev->nr);
 	pr_info("[Tung]: Number id bus %d\n", sdev->ctrl->nr);
-	serdev_device_set_baudrate(sdev, 9600);
+	serdev_device_set_baudrate(sdev, baudrate);
 	serdev_device_set_flow_control(sdev, false);
-	serdev_device_set_client_ops(sdev, &hc06_bluetooth_ops);
+	serdev_device_set_client_ops(sdev, &bluetooth_device_ops);
 
-	ret = serdev_device_write(sdev, CMD, sizeof(CMD), 2*HZ);
-	if (ret < 0)
-		pr_err("Tung: Failed to send command\n");
-	pr_info("Tung: ret is %d\n", ret);
-
-	ret = alloc_chrdev_region(&hc06->major, 0, 1, "hc06-bluetooth");
+	ret = alloc_chrdev_region(&btdev->major, 0, 1, "bt_device");
 	if (ret < 0) {
 		pr_err("Failed to alloc chrdev\n");
 		goto Failed_alloc_chrdev;
 	}
 
-	cdev_init(&hc06->cdev, &fops);
-	ret = cdev_add(&hc06->cdev, hc06->major, 1);
+	cdev_init(&btdev->cdev, &fops);
+	ret = cdev_add(&btdev->cdev, btdev->major, 1);
 	if (ret < 0) {
 		pr_err("Failed to add cdev\n");
 		goto Faled_cdev_add;
 	}
 
-	hc06->class = class_create(THIS_MODULE, "hc06-bluetooth");
-	if (IS_ERR(hc06->class)) {
-		ret = (int)PTR_ERR(hc06->class);
+	btdev->class = class_create(THIS_MODULE, "bt_device");
+	if (IS_ERR(btdev->class)) {
+		ret = (int)PTR_ERR(btdev->class);
 		pr_err("Failed to create class\n");
 		goto Failed_create_class;
 	}
 
-	hc06->device = device_create(hc06->class, NULL, hc06->major,
-				NULL, "hc06-bluetooth");
-	if (IS_ERR(hc06->device)) {
-		ret = (int)PTR_ERR(hc06->device);
+	btdev->device = device_create(btdev->class, NULL, btdev->major,
+				NULL, "bt_device");
+	if (IS_ERR(btdev->device)) {
+		ret = (int)PTR_ERR(btdev->device);
 		pr_err("Failed to create device\n");
 		goto Failed_create_device;
 	}
@@ -131,44 +157,45 @@ static int hc06_bluetooth_probe(struct serdev_device *sdev)
 	return 0;
 
 Failed_create_device:
-	class_destroy(hc06->class);
+	class_destroy(btdev->class);
 Failed_create_class:
-	cdev_del(&hc06->cdev);
+	cdev_del(&btdev->cdev);
 Faled_cdev_add:
-	unregister_chrdev_region(hc06->major, 1);
+	unregister_chrdev_region(btdev->major, 1);
 Failed_alloc_chrdev:
 	return ret;
 }
 
-static void hc06_bluetooth_remove(struct serdev_device *sdev)
+static void bluetooth_device_remove(struct serdev_device *sdev)
 {
-	struct hc06_bluetooth *hc06;
+	struct bluetooth_device *btdev;
 
-	hc06 = serdev_device_get_drvdata(sdev);
+	btdev = serdev_device_get_drvdata(sdev);
 	serdev_device_close(sdev);
-	cdev_del(&hc06->cdev);
-	device_destroy(hc06->class, 1);
-	class_destroy(hc06->class);
-	unregister_chrdev_region(hc06->major, 1);
+	cdev_del(&btdev->cdev);
+	device_destroy(btdev->class, 1);
+	class_destroy(btdev->class);
+	unregister_chrdev_region(btdev->major, 1);
 }
 
-static struct of_device_id hc06_bluetooth_table[] = {
-	{ .compatible = "CSR,hc06-bluetooth" },
+static struct of_device_id bluetooth_device_table[] = {
+	{ .compatible = "csr,hc06-bluetooth" },
+	{ .compatible = "csr,hc05-bluetooth"}
 	{ /* NULL */},
 };
-MODULE_DEVICE_TABLE(of, hc06_bluetooth_table);
+MODULE_DEVICE_TABLE(of, bluetooth_device_table);
 
-static struct serdev_device_driver hc06_bluetooth_driver = {
-	.probe = hc06_bluetooth_probe,
-	.remove = hc06_bluetooth_remove,
+static struct serdev_device_driver bluetooth_device_driver = {
+	.probe = bluetooth_device_probe,
+	.remove = bluetooth_device_remove,
 	.driver = {
-		.name = "hc06-bluetooth",
-		.of_match_table = of_match_ptr(hc06_bluetooth_table),
+		.name = "bt_device",
+		.of_match_table = of_match_ptr(bluetooth_device_table),
 	},
 };
 
-module_serdev_device_driver(hc06_bluetooth_driver);
+module_serdev_device_driver(bluetooth_device_driver);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Tungnt");
-MODULE_DESCRIPTION("Serial driver for hc06 bluetooth module");
+MODULE_DESCRIPTION("Serial driver for bluetooth module");
