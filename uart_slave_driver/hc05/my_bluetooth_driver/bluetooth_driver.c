@@ -7,6 +7,8 @@
 #include <linux/device.h>
 #include <linux/fs.h>
 #include <linux/wait.h>
+#include <linux/mutex.h>
+#include <linux/poll.h>
 #include <linux/uaccess.h>
 #include <linux/cdev.h>
 
@@ -14,6 +16,7 @@ struct bluetooth_device {
 	bool                 has_data;
 	dev_t                major;
 	wait_queue_head_t    wait_queue;
+	struct mutex         lock;
 	struct cdev          cdev;
 	struct device        *device;
 	struct class         *class;
@@ -42,7 +45,7 @@ static ssize_t bt_device_read(struct file *filep, char __user *buf,
 	return 0;
 }
 
-static ssize_t dt_device_write(struct file *filep, const char *buf, size_t len,
+static ssize_t bt_device_write(struct file *filep, const char *buf, size_t len,
 				loff_t *ofset)
 {
 	int ret;
@@ -61,7 +64,7 @@ static ssize_t dt_device_write(struct file *filep, const char *buf, size_t len,
 	}
 	pr_info("get from user: %s\n", message);
 
-	ret = serdev_device_write(btdev->sdev, message, sizeof(message), 2*HZ);
+	ret = serdev_device_write(btdev->sdev, message, sizeof(message), 3*HZ);
 	pr_info("ret = %d\n", ret);
 
 	kfree(message);
@@ -70,7 +73,7 @@ static ssize_t dt_device_write(struct file *filep, const char *buf, size_t len,
 }
 
 static struct file_operations fops = {
-	.write = dt_device_write,
+	.write = bt_device_write,
 	.read  = bt_device_read,
 	.poll  = bt_device_poll
 };
@@ -119,6 +122,7 @@ static int bluetooth_device_probe(struct serdev_device *sdev)
 	}
 
 	init_waitqueue_head(&btdev->wait_queue);
+	mutex_init(&btdev->lock);
 
 	pr_info("[Tung]: open success device number %d on serdev bus\n", sdev->nr);
 	pr_info("[Tung]: Number id bus %d\n", sdev->ctrl->nr);
@@ -171,6 +175,7 @@ static void bluetooth_device_remove(struct serdev_device *sdev)
 	struct bluetooth_device *btdev;
 
 	btdev = serdev_device_get_drvdata(sdev);
+	mutex_destroy(&btdev->lock);
 	serdev_device_close(sdev);
 	cdev_del(&btdev->cdev);
 	device_destroy(btdev->class, 1);
@@ -180,7 +185,7 @@ static void bluetooth_device_remove(struct serdev_device *sdev)
 
 static struct of_device_id bluetooth_device_table[] = {
 	{ .compatible = "csr,hc06-bluetooth" },
-	{ .compatible = "csr,hc05-bluetooth"}
+	{ .compatible = "csr,hc05-bluetooth"},
 	{ /* NULL */},
 };
 MODULE_DEVICE_TABLE(of, bluetooth_device_table);
