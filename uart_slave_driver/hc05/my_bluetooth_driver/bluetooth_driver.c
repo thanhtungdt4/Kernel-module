@@ -84,7 +84,7 @@ static int bt_device_receive_buf(struct serdev_device *sdev,
 	struct bluetooth_device *btdev = serdev_device_get_drvdata(sdev);
 
 	pr_info("Jump to %s function\n", __func__);
-	pr_info("raw msg: %.*s\n", (int)count, data);
+	pr_info("Received %zu bytes:\n", count);
 	//print_hex_dump(KERN_INFO, "btdata: ", DUMP_PREFIX_OFFSET, 16, 1, data, count, true);
 
 	if (count > 1) {
