@@ -84,9 +84,22 @@ static int bt_device_receive_buf(struct serdev_device *sdev,
 	struct bluetooth_device *btdev = serdev_device_get_drvdata(sdev);
 
 	pr_info("Jump to %s function\n", __func__);
-	pr_info("read from bt module: %s\n", data);
+	pr_info("raw msg: %.*s\n", (int)count, data);
+	//print_hex_dump(KERN_INFO, "btdata: ", DUMP_PREFIX_OFFSET, 16, 1, data, count, true);
 
-	return 0;
+	if (count > 1) {
+		char *temp = kzalloc(count, GFP_KERNEL);
+		if (!temp)
+			return -ENOMEM;
+		memcpy(temp, data, count);
+		temp[count] = '\0';
+		pr_info("Get message: %s\n", temp);
+		kfree(temp);
+	}
+
+	serdev_device_write_flush(sdev);
+
+	return count;
 }
 
 static struct serdev_device_ops bluetooth_device_ops = {
@@ -173,13 +186,13 @@ Failed_alloc_chrdev:
 static void bluetooth_device_remove(struct serdev_device *sdev)
 {
 	struct bluetooth_device *btdev;
-
 	btdev = serdev_device_get_drvdata(sdev);
+
 	mutex_destroy(&btdev->lock);
 	serdev_device_close(sdev);
-	cdev_del(&btdev->cdev);
-	device_destroy(btdev->class, 1);
+	device_destroy(btdev->class, btdev->major);
 	class_destroy(btdev->class);
+	cdev_del(&btdev->cdev);
 	unregister_chrdev_region(btdev->major, 1);
 }
 
