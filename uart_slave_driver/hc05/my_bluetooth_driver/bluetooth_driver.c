@@ -65,7 +65,7 @@ static ssize_t bt_device_write(struct file *filep, const char *buf, size_t len,
 	struct bluetooth_device *btdev = to_bluetooth_dev(filep->f_inode->i_cdev);
 	char *message;
 
-	message = kmalloc(len, GFP_KERNEL);
+	message = kzalloc(len, GFP_KERNEL);
 	if (!message)
 		return -ENOMEM;
 
@@ -77,7 +77,7 @@ static ssize_t bt_device_write(struct file *filep, const char *buf, size_t len,
 	}
 	pr_info("get from user: %s\n", message);
 
-	ret = serdev_device_write(btdev->sdev, message, sizeof(message), 3*HZ);
+	ret = serdev_device_write(btdev->sdev, message, len, 3*HZ);
 	pr_info("ret = %d\n", ret);
 
 	kfree(message);
