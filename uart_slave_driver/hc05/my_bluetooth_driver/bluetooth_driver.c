@@ -12,9 +12,13 @@
 #include <linux/uaccess.h>
 #include <linux/cdev.h>
 
+#define BT_BUFFER_SIZE 128
+
 struct bluetooth_device {
-	bool                 has_data;
+	bool                 is_data_ready;
 	dev_t                major;
+	char                 rx_buffer[BT_BUFFER_SIZE];
+	unsigned int         rx_len;
 	wait_queue_head_t    wait_queue;
 	struct mutex         lock;
 	struct cdev          cdev;
@@ -31,8 +35,9 @@ static __poll_t bt_device_poll(struct file *filep, struct poll_table_struct *wai
 	struct bluetooth_device *btdev = to_bluetooth_dev(filep->f_inode->i_cdev);
 
 	poll_wait(filep, &btdev->wait_queue, wait);
-	if (btdev->has_data) {
-		btdev->has_data = false;
+	if (btdev->is_data_ready) {
+		pr_info("data is ready\n");
+		btdev->is_data_ready = false;
 		mask |= POLLIN | POLLRDNORM;
 	}
 
@@ -42,7 +47,15 @@ static __poll_t bt_device_poll(struct file *filep, struct poll_table_struct *wai
 static ssize_t bt_device_read(struct file *filep, char __user *buf, 
 	size_t size, loff_t *offset)
 {
-	return 0;
+	struct bluetooth_device *btdev = to_bluetooth_dev(filep->f_inode->i_cdev);
+
+	//len = simple_read_from_buffer(buf, size, offset,
+	//		btdev->rx_buffer, btdev->rx_len);
+	if (copy_to_user(buf, btdev->rx_buffer, btdev->rx_len)) {
+		return -EFAULT;
+	}
+
+	return btdev->rx_len;
 }
 
 static ssize_t bt_device_write(struct file *filep, const char *buf, size_t len,
@@ -87,14 +100,15 @@ static int bt_device_receive_buf(struct serdev_device *sdev,
 	pr_info("Received %zu bytes:\n", count);
 	//print_hex_dump(KERN_INFO, "btdata: ", DUMP_PREFIX_OFFSET, 16, 1, data, count, true);
 
+	memset(btdev->rx_buffer, '\0', BT_BUFFER_SIZE);
+	btdev->rx_len = count;
+
 	if (count > 1) {
-		char *temp = kzalloc(count, GFP_KERNEL);
-		if (!temp)
-			return -ENOMEM;
-		memcpy(temp, data, count);
-		temp[count] = '\0';
-		pr_info("Get message: %s\n", temp);
-		kfree(temp);
+		memcpy(btdev->rx_buffer, data, count);
+		btdev->rx_buffer[count] = '\0';
+		btdev->is_data_ready = true;
+		wake_up_interruptible(&btdev->wait_queue);
+		pr_info("Get message: %s\n", btdev->rx_buffer);
 	}
 
 	serdev_device_write_flush(sdev);
@@ -122,7 +136,7 @@ static int bluetooth_device_probe(struct serdev_device *sdev)
 		pr_info("[Tung] baudrate: %d\n", baudrate);
 	}
 
-	btdev->has_data = false;
+	btdev->is_data_ready = false;
 	btdev->sdev = sdev;
 	serdev_device_set_drvdata(sdev, btdev);
 
@@ -156,7 +170,7 @@ static int bluetooth_device_probe(struct serdev_device *sdev)
 		goto Faled_cdev_add;
 	}
 
-	btdev->class = class_create(THIS_MODULE, "bt_device");
+	btdev->class = class_create("bt_device");
 	if (IS_ERR(btdev->class)) {
 		ret = (int)PTR_ERR(btdev->class);
 		pr_err("Failed to create class\n");
