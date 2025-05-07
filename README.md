@@ -1,4 +1,6 @@
 first version
+Nam
+thanh
 tung
 quynh
 nguyen
